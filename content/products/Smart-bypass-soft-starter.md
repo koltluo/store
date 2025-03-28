@@ -1,5 +1,5 @@
 ---
-title: "智能旁路软启动器"
+title: "GE300系列智能旁路软启动器"
 date: 2023-10-01
 id: SKRA-4T
 categories: ["软启动"]
