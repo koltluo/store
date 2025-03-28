@@ -1,0 +1,265 @@
+{{ define "main" }}
+<div class="hx-mx-auto hx-flex hx-max-w-[90rem]">
+  <article class="hx-w-full hx-break-words hx-min-h-[calc(100vh-var(--navbar-height))] hx-min-w-0 hx-pt-4 hx-pb-8 hx-pl-[max(env(safe-area-inset-left),1.5rem)] hx-pr-[max(env(safe-area-inset-left),1.5rem)]">
+    <div class="flex flex-col md:flex-row gap-8 max-w-7xl mx-auto">
+      <!-- 计算器主体 -->
+      <div class="w-full md:w-2/3 bg-white p-8 rounded-lg shadow-lg">
+        <!-- 加载动画 -->
+        <div class="loader hidden absolute inset-0 bg-white/95 flex justify-center items-center rounded-lg z-50">
+          <div class="w-10 h-10 border-4 border-gray-200 border-t-blue-500 rounded-full animate-spin"></div>
+        </div>
+
+        <!-- 标题 -->
+        <h1 class="text-2xl font-bold text-gray-900 mb-8">软启动器智能选型计算器</h1>
+
+        <!-- 输入区域 -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+          <!-- 电机功率 -->
+          <div class="flex flex-col gap-2">
+            <label class="text-sm font-medium text-gray-700">电机功率 (kW)</label>
+            <div class="relative">
+              <input type="number" id="power" step="0.1" min="0.1" class="w-full p-3 border border-gray-300 rounded-lg focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition">
+            </div>
+          </div>
+
+          <!-- 额定电压 -->
+          <div class="flex flex-col gap-2">
+            <label class="text-sm font-medium text-gray-700">额定电压</label>
+            <select id="voltage" class="w-full p-3 border border-gray-300 rounded-lg focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition">
+              <option value="380">380V</option>
+              <option value="660">660V</option>
+              <option value="1140">1140V</option>
+              <option value="3000">3kV</option>
+              <option value="10000">10kV</option>
+            </select>
+          </div>
+
+          <!-- 负载类型 -->
+          <div class="flex flex-col gap-2">
+            <label class="text-sm font-medium text-gray-700">负载类型</label>
+            <select id="loadType" class="w-full p-3 border border-gray-300 rounded-lg focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition">
+              <option value="1.0">轻载 (风机、水泵)</option>
+              <option value="1.2">中载 (压缩机、传送带)</option>
+              <option value="1.5">重载 (破碎机、球磨机)</option>
+            </select>
+          </div>
+
+          <!-- 应用场景 -->
+          <div class="flex flex-col gap-2">
+            <label class="text-sm font-medium text-gray-700">应用场景</label>
+            <select id="application" class="w-full p-3 border border-gray-300 rounded-lg focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition">
+              <option value="1">一般工业</option>
+              <option value="1.1">矿山机械</option>
+              <option value="1.2">石油化工</option>
+              <option value="1.3">港口起重</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- 计算按钮 -->
+        <button onclick="calculate()" class="w-full bg-blue-500 text-white py-3 rounded-lg hover:bg-blue-600 transition">立即计算</button>
+
+        <!-- 错误提示 -->
+        <div id="errorMsg" class="text-red-500 text-sm mt-2 hidden">请输入有效的电机功率</div>
+
+        <!-- 结果面板 -->
+        <div id="result" class="mt-8 bg-blue-50 p-6 rounded-lg border border-blue-100 hidden">
+          <h3 class="text-xl font-semibold text-gray-900 mb-4">选型结果</h3>
+          <table class="w-full">
+            <thead>
+              <tr class="bg-blue-100">
+                <th class="p-3 text-left text-sm font-medium text-gray-700">推荐型号</th>
+                <th class="p-3 text-left text-sm font-medium text-gray-700">计算电流</th>
+                <th class="p-3 text-left text-sm font-medium text-gray-700">建议型号参数</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td id="model" class="p-3 text-blue-500 font-medium">-</td>
+                <td id="current" class="p-3 text-blue-500 font-medium">-</td>
+                <td id="specs" class="p-3 text-gray-700">-</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <!-- 图表 -->
+          <div class="mt-6">
+            <canvas id="currentChart"></canvas>
+          </div>
+
+          <!-- 导出按钮 -->
+          <button onclick="window.location.href='/products/online-soft-starter/'" class="w-full bg-green-500 text-white py-3 rounded-lg mt-6 hover:bg-green-600 transition">获取详细方案</button>
+        </div>
+      </div>
+
+      <!-- 信息面板 -->
+      <div class="w-full md:w-1/3 bg-white p-6 rounded-lg shadow-lg">
+        <img src="https://blog.lyskjd.com/image/BPQ/3.jpg" alt="变频器产品图" class="w-full rounded-lg mb-6">
+        <div class="bg-blue-50 p-4 rounded-lg border border-blue-100">
+          <h3 class="text-lg font-semibold text-blue-500 mb-4">联系我们</h3>
+          <p class="text-sm text-gray-700 mb-2">服务热线：+86 150-6499-9739</p>
+          <p class="text-sm text-gray-700 mb-2">邮箱：sales@lyskjd.com</p>
+          <p class="text-sm text-gray-700">地址：中国山东省临沂市兰山区通达路与清河北路交汇东北角</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 内容区域 -->
+    <div class="hx-mb-16"></div>
+    <div class="content">
+      {{ .Content }}
+    </div>
+  </article>
+</div>
+
+<!-- 引入 Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+  // 型号数据库
+  const models = {
+    'SKR4-22': { current: 45, voltage: [380] },
+    'SKR4-30': { current: 60, voltage: [380] },
+    'SKR4-37': { current: 75, voltage: [380] },
+    'SKR4-45': { current: 90, voltage: [380] },
+    'SKR4-55': { current: 110, voltage: [380] },
+    'SKR4-75': { current: 150, voltage: [380] },
+    'SKR4-90': { current: 180, voltage: [380] },
+    'SKR4-115': { current: 230, voltage: [380] },
+    'SKR4-132': { current: 265, voltage: [380] },
+    'SKR4-160': { current: 320, voltage: [380] },
+    'SKR4-185': { current: 370, voltage: [380] },
+    'SKR4-200': { current: 400, voltage: [380] },
+    'SKR4-220': { current: 440, voltage: [380] },
+    'SKR4-250': { current: 500, voltage: [380] },
+    'SKR4-280': { current: 560, voltage: [380] },
+    'SKR4-320': { current: 640, voltage: [380] },
+    'SKR4-355': { current: 710, voltage: [380] },
+    'SKR4-400': { current: 800, voltage: [380] },
+    'SKR4-450': { current: 900, voltage: [380] },
+    'SKR4-500': { current: 1000, voltage: [380] },
+    'SKR4-630': { current: 1260, voltage: [380] },
+    'SKR6-22': { current: 45, voltage: [660] },
+    'SKR6-30': { current: 60, voltage: [660] },
+    'SKR6-37': { current: 75, voltage: [660] },
+    'SKR6-45': { current: 90, voltage: [660] },
+    'SKR6-55': { current: 110, voltage: [660] },
+    'SKR6-75': { current: 150, voltage: [660] },
+    'SKR6-90': { current: 180, voltage: [660] },
+    'SKR6-115': { current: 230, voltage: [660] },
+    'SKR6-132': { current: 265, voltage: [660] },
+    'SKR6-160': { current: 320, voltage: [660] },
+    'SKR6-185': { current: 370, voltage: [660] },
+    'SKR6-200': { current: 400, voltage: [660] },
+    'SKR6-220': { current: 440, voltage: [660] },
+    'SKR6-250': { current: 500, voltage: [660] },
+    'SKR6-280': { current: 560, voltage: [660] },
+    'SKR6-320': { current: 640, voltage: [660] },
+    'SKR6-355': { current: 710, voltage: [660] },
+    'SKR6-400': { current: 800, voltage: [660] },
+    'SKR6-450': { current: 900, voltage: [660] },
+    'SKR6-500': { current: 1000, voltage: [660] },
+    'SKR6-630': { current: 1260, voltage: [660] },
+    'SKR12-100': { current: 200, voltage: [1140] },
+    'SKR30-200': { current: 400, voltage: [3000] },
+    'SKR100-400': { current: 800, voltage: [10000] }
+  };
+
+  let currentChart = null;
+
+  function calculate() {
+    const power = parseFloat(document.getElementById('power').value);
+    const voltage = parseInt(document.getElementById('voltage').value);
+    const loadFactor = parseFloat(document.getElementById('loadType').value);
+    const appFactor = parseFloat(document.getElementById('application').value);
+
+    if (isNaN(power) || power <= 0) {
+      showError('请输入有效的电机功率');
+      return;
+    }
+
+    const current = (power * 1000) / (Math.sqrt(3) * voltage * 0.85) * loadFactor * appFactor;
+    const recommended = findModel(current, voltage);
+
+    if (!recommended) {
+      showError('未找到合适的软启动器型号，请调整参数或联系我们获取更多帮助。');
+      return;
+    }
+
+    showResult(current.toFixed(1), recommended);
+    updateChart(current, recommended);
+  }
+
+  function findModel(current, voltage) {
+    return Object.entries(models).find(([name, spec]) =>
+      spec.current >= current && spec.voltage.includes(voltage)
+    )?.[0];
+  }
+
+  function showResult(current, model) {
+    document.getElementById('errorMsg').style.display = 'none';
+    const resultDiv = document.getElementById('result');
+    resultDiv.style.display = 'block';
+
+    document.getElementById('model').textContent = model;
+    document.getElementById('current').textContent = current;
+    document.getElementById('specs').innerHTML = `
+      <li>额定电流：${models[model].current}A</li>
+      <li>适用电压：${models[model].voltage.join('V/')}V</li>
+      <li>防护等级：IP${model.includes('800') ? '65' : '54'}</li>
+    `;
+  }
+
+  function updateChart(current, recommendedModel) {
+    const ctx = document.getElementById('currentChart').getContext('2d');
+    if (currentChart) {
+      currentChart.destroy();
+    }
+
+    const recommendedCurrent = models[recommendedModel].current;
+    currentChart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: ['计算电流', '推荐型号电流'],
+        datasets: [{
+          label: '电流值 (A)',
+          data: [current, recommendedCurrent],
+          backgroundColor: ['rgba(54, 162, 235, 0.6)', 'rgba(75, 192, 192, 0.6)'],
+          borderColor: ['rgba(54, 162, 235, 1)', 'rgba(75, 192, 192, 1)'],
+          borderWidth: 1
+        }]
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true,
+            title: { display: true, text: '电流 (A)' }
+          }
+        },
+        plugins: {
+          title: {
+            display: true,
+            text: '计算电流与推荐型号电流对比'
+          }
+        }
+      }
+    });
+  }
+
+  function showError(msg) {
+    document.getElementById('errorMsg').textContent = msg;
+    document.getElementById('errorMsg').style.display = 'block';
+    document.getElementById('result').style.display = 'none';
+  }
+
+  document.getElementById('power').addEventListener('input', function (e) {
+    if (e.target.value < 0) e.target.value = Math.abs(e.target.value);
+  });
+</script>
+
+<style>
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+  </style>
+{{ end }}

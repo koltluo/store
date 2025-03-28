@@ -1,0 +1,425 @@
+{{ define "main" }}
+<!-- 延迟加载 Swiper CSS -->
+<link rel="preload" href="https://unpkg.com/swiper/swiper-bundle.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css"></noscript>
+
+<div class="container max-w-7xl mx-auto px-4 py-8">
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+    <!-- 商品图片轮播 -->
+    <div>
+      <div class="swiper-container main-slider">
+        <div class="swiper-wrapper">
+          {{ range .Params.images }}
+          <div class="swiper-slide">
+            <img src="{{ . }}" 
+            class="w-full h-full object-cover bg-gray-100 rounded-lg" 
+            alt="商品图片"
+            loading="lazy"
+>
+          </div>
+          {{ end }}
+        </div>
+        <div class="swiper-pagination"></div>
+      </div>
+
+      <!-- 缩略图导航 -->
+      <div class="swiper-container thumb-slider mt-4">
+        <div class="swiper-wrapper">
+          {{ range .Params.images }}
+          <div class="swiper-slide">
+            <img src="{{ . }}" 
+            class="w-20 h-20 object-cover rounded-md" 
+            alt="缩略图"
+            loading="lazy">
+          </div>
+          {{ end }}
+        </div>
+      </div>
+    </div>
+
+    <!-- 商品信息 -->
+    <div class="space-y-6">
+      <h1 class="text-3xl font-bold text-gray-900">{{ .Title }}</h1>
+
+<!-- 价格显示 -->
+<div class="bg-gray-50 p-4 rounded-lg">
+  <div class="space-y-2">
+    <!-- 价格信息 -->
+    <div class="flex items-center gap-4">
+      <span class="text-3xl font-bold text-red-600" id="price">¥{{ .Params.price }}</span>
+      <del class="text-gray-500 text-xl" id="originalPrice">¥{{ .Params.originalPrice }}</del>
+      {{ if and (.Params.originalPrice) (gt .Params.originalPrice .Params.price) }}
+      <div class="flex items-center gap-2">
+        <span class="text-green-600 bg-green-100 px-2 py-1 rounded" id="savings">
+          立省¥{{ sub (float .Params.originalPrice) (float .Params.price) | lang.FormatNumber 2 }}
+        </span>
+        <!-- 倒计时 -->
+        <div class="bg-red-50 px-3 py-1 rounded-lg text-sm text-red-600 font-semibold" id="countdown">
+          剩余时间：<span class="bg-white px-2 py-1 rounded shadow-sm font-bold">02:00:00</span>
+        </div>
+      </div>
+      {{ end }}
+    </div>
+    <!-- 销量信息 -->
+    <div class="text-sm text-gray-500">
+      累计销量 {{ .Params.sales }} 件
+    </div>
+  </div>
+</div>
+      <!-- 规格选择 -->
+      <div class="space-y-4">
+        {{ range .Params.specifications }}
+        <div>
+          <h3 class="text-lg font-medium mb-2">{{ .name }}</h3>
+          <div class="flex flex-wrap gap-2">
+            {{ range .options }}
+            <button 
+              class="px-4 py-2 border rounded-md hover:border-red-500 spec-btn"
+              data-spec="{{ .name }}"
+              data-price="{{ .price }}"
+              data-original-price="{{ .originalPrice }}"
+            >
+              {{ .name }}
+            </button>
+            {{ end }}
+          </div>
+        </div>
+        {{ end }}
+      </div>
+
+      <!-- 数量选择 -->
+      <div class="flex items-center gap-4">
+        <span class="text-lg">数量</span>
+        <div class="flex items-center border rounded-md">
+          <button 
+            class="px-3 py-2 border-r hover:bg-gray-100 quantity-btn" 
+            data-action="decrease"
+          >-</button>
+          <input 
+            type="number" 
+            value="1" 
+            min="1" 
+            class="w-16 text-center outline-none"
+            id="quantity"
+          >
+          <button 
+            class="px-3 py-2 border-l hover:bg-gray-100 quantity-btn"
+            data-action="increase"
+          >+</button>
+        </div>
+      </div>
+
+      <!-- 操作按钮 -->
+      <div class="flex gap-4">
+        <button 
+          id="add-to-cart-btn"
+          class="flex-1 bg-red-500 text-white py-3 rounded-md hover:bg-red-600 transition-colors"
+        >
+          加入购物车
+        </button>
+        <button class="flex-1 bg-gray-100 text-gray-800 py-3 rounded-md hover:bg-gray-200 add-to-favorites-btn">
+          加入收藏
+        </button>
+      </div>
+
+      <!-- 产品参数 -->
+      <div class="specs-box mt-8 p-6 bg-gray-50 rounded-xl">
+        <h3 class="text-xl font-semibold mb-4">商品属性</h3>
+        <dl class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {{ range $key, $value := .Params.specs }}
+          <div class="spec-item">
+            <dt class="text-gray-600 font-medium">{{ $key | humanize }}</dt>
+            <dd class="text-gray-800">{{ $value }}</dd>
+          </div>
+          {{ end }}
+        </dl>
+      </div>
+    </div>
+  </div>
+
+  <!-- 商品详情 -->
+  <div class="mt-12 border-t pt-8">
+    <h2 class="text-2xl font-bold mb-6">商品详情</h2>
+    <div class="content">
+      {{ .Content }}
+    </div>
+  </div>
+
+  <!-- 相关商品推荐 -->
+  <div class="mt-12 border-t pt-8">
+    <h2 class="text-2xl font-bold mb-6">相关推荐</h2>
+    <div class="swiper-container related-slider">
+      <div class="swiper-wrapper">
+        {{ $related := where .Site.RegularPages "Type" "products" | first 8 }}
+        {{ range $related }}
+        <div class="swiper-slide">
+          <a href="{{ .RelPermalink }}" class="block group" target="_blank" title="{{ .Title }}" >
+            <div class="aspect-square bg-gray-100 rounded-lg overflow-hidden">
+              <img src="{{ index .Params.images 0 }}" 
+                   class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                   loading="lazy"
+                   alt="{{ .Title }}">
+            </div>
+            <div class="mt-4">
+              <h3 class="font-medium text-gray-900 line-clamp-2 mb-1">{{ .Title }}</h3>
+              <div class="flex items-center gap-2">
+                <span class="text-red-600 font-bold">¥{{ .Params.price }}</span>
+                {{ if .Params.originalPrice }}
+                <del class="text-gray-400 text-sm">¥{{ .Params.originalPrice }}</del>
+                {{ end }}
+              </div>
+            </div>
+          </a>
+        </div>
+        {{ end }}
+      </div>
+      <div class="swiper-button-next"></div>
+      <div class="swiper-button-prev"></div>
+    </div>
+  </div>
+</div>
+
+<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+<script>
+  // 轮播初始化
+  window.addEventListener('load', () => {
+    const thumbSlider = new Swiper('.thumb-slider', {
+      spaceBetween: 10,
+      slidesPerView: 6,
+      freeMode: true,
+      watchSlidesProgress: true,
+    });
+
+    const mainSlider = new Swiper('.main-slider', {
+      loop: true,
+      autoplay: { delay: 3000 },
+      pagination: { el: '.swiper-pagination', clickable: true },
+      spaceBetween: 10,
+      thumbs: { swiper: thumbSlider }
+    });
+
+    new Swiper('.related-slider', {
+      slidesPerView: 2,
+      spaceBetween: 20,
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      },
+      breakpoints: {
+        640: { slidesPerView: 3 },
+        1024: { slidesPerView: 4 }
+      }
+    });
+  });
+
+  // 加入收藏逻辑
+  document.querySelector('.add-to-favorites-btn').addEventListener('click', function () {
+    const url = window.location.href;
+    const title = document.title;
+
+    try {
+      if (window.external && 'AddFavorite' in window.external) {
+        window.external.AddFavorite(url, title);
+      } else {
+        alert('请按 Ctrl+D 将此页面加入收藏夹。');
+      }
+    } catch (e) {
+      alert('您的浏览器不支持自动加入收藏夹功能，请使用 Ctrl+D 手动添加。');
+    }
+  });
+
+  // 规格选择
+  document.querySelectorAll('.spec-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+      document.querySelectorAll('.spec-btn').forEach(b => b.classList.remove('border-red-500'));
+      this.classList.add('border-red-500');
+      
+      document.getElementById('price').textContent = `¥${this.dataset.price}`;
+      document.getElementById('originalPrice').textContent = `¥${this.dataset.originalPrice}`;
+      if(document.getElementById('savings')) {
+        document.getElementById('savings').textContent = 
+          `立省¥${(this.dataset.originalPrice - this.dataset.price).toFixed(2)}`;
+      }
+    });
+  });
+
+  // 数量调整
+  document.querySelectorAll('.quantity-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+      const input = document.getElementById('quantity');
+      let value = parseInt(input.value);
+      input.value = this.dataset.action === 'increase' ? value + 1 : Math.max(1, value - 1);
+    });
+  });
+
+  // 购物车管理器
+  const cartManager = {
+    key: 'global_cart',
+    
+    getCart() {
+      return JSON.parse(localStorage.getItem(this.key)) || [];
+    },
+
+    saveCart(cart) {
+      localStorage.setItem(this.key, JSON.stringify(cart));
+      this.updateBadge();
+    },
+
+    addItem(newItem) {
+      const cart = this.getCart();
+      const existing = cart.find(item => 
+        item.id === newItem.id && 
+        item.spec === newItem.spec
+      );
+
+      if(existing) {
+        existing.quantity += newItem.quantity;
+      } else {
+        newItem.uid = Date.now().toString(36);
+        cart.push(newItem);
+      }
+
+      this.saveCart(cart);
+      this.showAddSuccess();
+    },
+
+    updateBadge() {
+      const total = this.getCart().reduce((sum, item) => sum + item.quantity, 0);
+      document.querySelectorAll('.cart-badge').forEach(badge => {
+        badge.textContent = total;
+        badge.classList.toggle('hidden', total === 0);
+      });
+    },
+
+    showAddSuccess() {
+      const toast = document.createElement('div');
+      toast.className = 'fixed bottom-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg animate-slideIn';
+      toast.innerHTML = `
+        <span>✅ 已加入购物车</span>
+        <a href="/cart" class="ml-4 underline">去结算</a>
+      `;
+      document.body.appendChild(toast);
+      
+      setTimeout(() => {
+        toast.classList.replace('animate-slideIn', 'animate-slideOut');
+        setTimeout(() => toast.remove(), 500);
+      }, 3000);
+    }
+  };
+
+  // 加入购物车
+  document.getElementById('add-to-cart-btn').addEventListener('click', function() {
+    const selectedSpec = document.querySelector('.spec-btn.border-red-500');
+    const productInfo = {
+      id: '{{ .Params.id }}',
+      title: '{{ .Title }}',
+      spec: selectedSpec ? selectedSpec.dataset.spec : '默认规格',
+      price: selectedSpec ? parseFloat(selectedSpec.dataset.price) : parseFloat({{ .Params.price }}),
+      image: '{{ index .Params.images 0 }}',
+      quantity: parseInt(document.getElementById('quantity').value)
+    };
+    cartManager.addItem(productInfo);
+  });
+
+  // 初始化
+  document.addEventListener('DOMContentLoaded', () => {
+    cartManager.updateBadge();
+    window.addEventListener('storage', (e) => {
+      if(e.key === cartManager.key) cartManager.updateBadge();
+    });
+  });
+
+// 设置倒计时结束时间（2小时后）
+const endTime = new Date().getTime() + 2 * 60 * 60 * 1000;
+  // 更新倒计时
+  function updateCountdown() {
+    const now = new Date().getTime();
+    const timeLeft = endTime - now;
+    if (timeLeft <= 0) {
+      // 倒计时结束，恢复原价
+      document.getElementById('price').textContent = `¥{{ .Params.originalPrice }}`;
+      document.getElementById('originalPrice').style.display = 'none';
+      document.getElementById('savings').style.display = 'none';
+      document.getElementById('countdown').innerHTML = '优惠已结束';
+      return;
+    }
+    // 计算剩余时间
+    const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+    // 更新倒计时显示
+    document.getElementById('countdown').innerHTML = `
+      剩余时间：<span class="bg-white px-2 py-1 rounded shadow-sm font-bold">${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}</span>
+    `;
+    // 每秒更新一次
+    setTimeout(updateCountdown, 1000);
+  }
+  // 初始化倒计时
+  updateCountdown();  
+  </script>
+
+<style>
+  @keyframes slideIn {
+    from { transform: translateX(100%); }
+    to { transform: translateX(0); }
+  }
+  @keyframes slideOut {
+    from { transform: translateX(0); }
+    to { transform: translateX(100%); }
+  }
+  .animate-slideIn { animation: slideIn 0.3s ease-out; }
+  .animate-slideOut { animation: slideOut 0.3s ease-in forwards; }
+
+  .swiper-container {
+    position: relative;
+    overflow: hidden;
+  }
+  .main-slider {
+    margin-bottom: 1rem;
+    width: 100%;
+    max-width: 600px;
+    aspect-ratio: 1 / 1;
+  }
+  .thumb-slider .swiper-slide img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 0.5rem;
+  }
+
+    /* 技术参数样式 */
+    .specs-box dl {
+    display: flex;
+    flex-wrap: wrap; /* 允许多行显示 */
+  }
+
+  .specs-box .spec-item {
+    display: flex; /* 每个参数项使用 Flexbox */
+    width: 100%; /* 确保占满一行 */
+  }
+
+  .specs-box dt {
+    flex: 0 0 30%; /* 术语固定宽度为 30% */
+    font-weight: medium;
+    color: #4a4a4a;
+  }
+
+  .specs-box dd {
+    flex: 0 0 70%; /* 描述占剩余 70% */
+    margin-left: 0; /* 移除默认左边距 */
+    color: #333;
+  }
+
+  /* 响应式调整：中等屏幕及以上使用两列布局 */
+  @media (min-width: 768px) {
+    .specs-box dl {
+      display: grid;
+      grid-template-columns: 1fr 1fr; /* 两列布局 */
+    }
+    .specs-box .spec-item {
+      width: 100%; /* 保持每个参数项占满列 */
+    }
+  }
+
+</style>
+{{ end }}

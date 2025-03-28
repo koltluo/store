@@ -1,0 +1,188 @@
+{{ define "main" }}
+<div class="bg-gray-50 min-h-screen py-10">
+  <div class="max-w-4xl mx-auto bg-white shadow-md rounded-lg p-8 space-y-8">
+    <!-- 顶部标题与图标 -->
+    <div class="flex items-center space-x-4">
+      <div class="rounded-full bg-green-100 w-12 h-12 flex justify-center items-center">
+        <svg class="w-6 h-6 text-green-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path>
+        </svg>
+      </div>
+      <h1 class="text-2xl font-semibold text-green-600">订单提交成功！</h1>
+    </div>
+    <p class="text-base text-gray-600">
+      感谢您的购买！我们已收到您的订单，请耐心等待发货。如有疑问，请拨打客服热线或点击下方按钮联系我们的客服。
+    </p>
+
+    <!-- 订单信息 -->
+    <div class="bg-gray-50 border border-gray-200 rounded-lg p-6 space-y-4">
+      <h2 class="text-lg font-semibold text-gray-800">订单信息</h2>
+      <p class="text-gray-700">
+        订单号：<span id="order-number" class="text-gray-900 font-bold">--</span>
+      </p>
+      <p class="text-gray-700">
+        支付时间：<span id="order-timestamp" class="text-gray-900">--</span>
+      </p>
+      <p class="text-gray-700">
+        总金额：<span id="order-total" class="text-lg text-green-600 font-bold">--</span>
+      </p>
+    </div>
+
+    <!-- 收货信息 -->
+    <div class="bg-gray-50 border border-gray-200 rounded-lg p-6 space-y-4">
+      <h2 class="text-lg font-semibold text-gray-800">收货信息</h2>
+      <p class="text-gray-700">
+        收件人：<span id="shipping-name" class="font-medium">--</span>
+      </p>
+      <p class="text-gray-700">
+        收件地址：<span id="shipping-address" class="font-medium">--</span>
+      </p>
+      <p class="text-gray-700">
+        联系电话：<span id="shipping-phone" class="font-medium">--</span>
+      </p>
+    </div>
+
+    <!-- 发票信息 -->
+    <div id="invoice-section" class="hidden bg-gray-50 border border-gray-200 rounded-lg p-6 space-y-4">
+      <h2 class="text-lg font-semibold text-gray-800">开票信息</h2>
+      <p class="text-gray-700">
+        发票抬头：<span id="invoice-title" class="font-medium">--</span>
+      </p>
+      <p class="text-gray-700">
+        纳税人识别号：<span id="invoice-tax-id" class="font-medium">--</span>
+      </p>
+    </div>
+
+    <!-- 商品详情 -->
+    <div class="bg-gray-50 border border-gray-200 rounded-lg p-6 space-y-4">
+      <h2 class="text-lg font-semibold text-gray-800">订单商品详情</h2>
+      <div class="overflow-x-auto">
+        <table class="table-auto w-full text-left border-collapse border border-gray-300">
+          <thead>
+            <tr class="bg-gray-100">
+              <th class="border border-gray-300 px-4 py-2">商品名称</th>
+              <th class="border border-gray-300 px-4 py-2">规格</th>
+              <th class="border border-gray-300 px-4 py-2">单价</th>
+              <th class="border border-gray-300 px-4 py-2">数量</th>
+              <th class="border border-gray-300 px-4 py-2">金额</th>
+            </tr>
+          </thead>
+          <tbody id="order-items" class="text-gray-700"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- 友情提示 -->
+    <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4">
+      <p class="text-yellow-800">
+        温馨提示： 请记录您的 <span class="text-red-500">订单号码</span>，方便查看订单状态。
+        若有疑问，请拨打 <span class="font-bold">150-6499-9739</span>。
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- 引入 MailJS SDK -->
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+<script>
+  const ORDER_SUCCESS_KEY = 'orderSuccessData'; // 定义订单数据存储的键名
+
+  // 初始化 MailJS
+  emailjs.init('Y7gu1M9_xZGOiqsUy'); // 替换为你的 Public Key
+
+  document.addEventListener("DOMContentLoaded", () => {
+    const orderData = JSON.parse(localStorage.getItem(ORDER_SUCCESS_KEY));
+    console.log("读取到的订单数据:", orderData);
+
+    if (!orderData) {
+      console.error("订单数据不存在或已过期，重新跳转到购物车");
+      alert("订单数据不存在，请重新下单！");
+      window.location.href = "/cart";
+      return;
+    }
+
+    if (!orderData.items || orderData.items.length === 0) {
+      console.error("订单数据结构错误，items 字段不存在或为空:", orderData);
+      alert("订单详情数据缺失，请联系客服！");
+      return;
+    }
+
+    // 渲染页面数据
+    renderOrderSuccessPage(orderData);
+
+    // 发送订单邮件
+    sendOrderEmail(orderData);
+  });
+
+  // 渲染订单成功页面数据
+  function renderOrderSuccessPage(orderData) {
+    // 渲染订单基本滴滴
+    document.getElementById("order-number").textContent = orderData.orderNumber || "--";
+    document.getElementById("order-total").textContent = `¥${(orderData.total || 0).toFixed(2)}`;
+    document.getElementById("order-timestamp").textContent = new Date(orderData.timestamp).toLocaleString();
+
+    // 渲染收货信息
+    const shippingInfo = orderData.shippingInfo || {};
+    document.getElementById("shipping-name").textContent = shippingInfo.name || "--";
+    document.getElementById("shipping-address").textContent = shippingInfo.address || "--";
+    document.getElementById("shipping-phone").textContent = shippingInfo.phone || "--";
+
+    // 渲染发票信息（如果有）
+    const invoiceSection = document.getElementById("invoice-section");
+    if (orderData.invoice) {
+      document.getElementById("invoice-title").textContent = orderData.invoice.title || "--";
+      document.getElementById("invoice-tax-id").textContent = orderData.invoice.taxId || "--";
+      invoiceSection.classList.remove("hidden");
+    }
+
+    // 渲染商品详情
+    const orderItemsContainer = document.getElementById("order-items");
+    orderItemsContainer.innerHTML = ""; // 清空现有内容
+
+    orderData.items.forEach((item) => {
+      const row = document.createElement("tr");
+      row.innerHTML = `
+        <td class="border border-gray-300 px-4 py-2">${item.title}</td>
+        <td class="border border-gray-300 px-4 py-2">${item.spec}</td>
+        <td class="border border-gray-300 px-4 py-2">¥${item.price.toFixed(2)}</td>
+        <td class="border border-gray-300 px-4 py-2">${item.quantity}</td>
+        <td class="border border-gray-300 px-4 py-2">¥${(item.price * item.quantity).toFixed(2)}</td>
+      `;
+      orderItemsContainer.appendChild(row);
+    });
+  }
+
+  // 发送订单邮件并在成功后清除本地存储
+  function sendOrderEmail(orderData) {
+    const templateParams = {
+      email: orderData.customerEmail || 'qidonggui@qq.com', // 替换为实际收件人邮箱
+      orderNumber: orderData.orderNumber || "--",
+      total: `¥${(orderData.total || 0).toFixed(2)}`,
+      timestamp: new Date(orderData.timestamp).toLocaleString(),
+      shippingName: orderData.shippingInfo?.name || "--",
+      shippingAddress: orderData.shippingInfo?.address || "--",
+      shippingPhone: orderData.shippingInfo?.phone || "--",
+      invoiceTitle: orderData.invoice?.title || "--",
+      invoiceTaxId: orderData.invoice?.taxId || "--",
+      items: orderData.items
+        .map((item) => `${item.title}-${item.spec} (¥${item.price.toFixed(2)} x ${item.quantity})`)
+        .join("\n"),
+    };
+
+    console.log('邮件参数:', templateParams); // 调试用
+
+    emailjs
+      .send("service_2fjj4d9", "template_39h7wb7", templateParams) // 替换为你的 Service ID 和 Template ID
+      .then((response) => {
+        console.log('邮件发送成功!', response.status, response.text);
+        // 邮件发送成功后清除本地存储中的订单数据
+        localStorage.removeItem(ORDER_SUCCESS_KEY);
+        alert("订单信息已发送至您的邮箱，感谢您的购买！");
+      })
+      .catch((error) => {
+        console.error('邮件发送失败:', error);
+        alert("邮件发送失败，请联系客服！");
+      });
+  }
+</script>
+{{ end }}

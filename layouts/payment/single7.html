@@ -1,0 +1,412 @@
+{{ define "main" }}
+<!-- 加载动画 -->
+<div id="loading" class="fixed inset-0 bg-white flex items-center justify-center z-50">
+  <div class="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-red-500"></div>
+</div>
+
+<!-- 支付弹窗 -->
+<div id="payment-modal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50">
+  <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white rounded-lg p-8 w-11/12 max-w-md">
+    <div class="flex justify-between items-center mb-6">
+      <h3 class="text-xl font-bold">选择支付方式</h3>
+      <button onclick="closePaymentModal()" class="text-gray-500 hover:text-gray-700">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+        </svg>
+      </button>
+    </div>
+    
+    <!-- 倒计时提示 -->
+    <div id="countdown" class="text-center text-sm text-gray-600 mb-4">
+      请在 <span id="countdown-time">120</span> 秒内完成支付
+    </div>
+
+    <div class="space-y-6">
+      <div>
+        <button 
+          class="payment-method-btn active:scale-95 transition-transform w-full"
+          data-type="alipay"
+          onclick="showQRCode('alipay')"
+        >
+          <img src="/images/alipay-logo.png" alt="支付宝" class="h-10 mx-auto">
+        </button>
+        <div id="alipay-qr" class="hidden mt-4">
+          <img src="/images/alipay-qrcode.jpg" 
+               class="w-48 mx-auto border rounded-lg p-2"
+               onerror="this.src='/images/default-qrcode.png'">
+          <p class="text-center mt-2 text-sm text-gray-600">支付宝扫一扫付款</p>
+        </div>
+      </div>
+
+      <div>
+        <button 
+          class="payment-method-btn active:scale-95 transition-transform w-full"
+          data-type="wechat"
+          onclick="showQRCode('wechat')"
+        >
+          <img src="/images/wechat-logo.png" alt="微信" class="h-10 mx-auto">
+        </button>
+        <div id="wechat-qr" class="hidden mt-4">
+          <img src="/images/wechat-qrcode.jpg" 
+               class="w-48 mx-auto border rounded-lg p-2"
+               onerror="this.src='/images/default-qrcode.png'">
+          <p class="text-center mt-2 text-sm text-gray-600">微信扫一扫付款</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-6 text-center text-sm text-gray-500">
+      <p>支付完成后请联系客服</p>
+      <p>提供支付截图和订单号</p>
+    </div>
+  </div>
+</div>
+
+<!-- 主要内容容器 -->
+<div class="container mx-auto px-4 py-8 max-w-4xl">
+  <h1 class="text-3xl font-bold mb-8">订单确认</h1>
+  
+  <!-- 收货信息区块 -->
+  <div class="bg-white p-6 rounded-lg shadow-md mb-8">
+    <div class="flex justify-between items-start">
+      <div class="space-y-2 flex-1">
+        <h2 class="text-xl font-semibold">收货信息</h2>
+        <div class="text-gray-700">
+          <p><span class="font-medium">收件人：</span><span id="shipping-name" class="text-gray-900"></span></p>
+          <p><span class="font-medium">联系电话：</span><span id="shipping-phone" class="text-gray-900"></span></p>
+          <p><span class="font-medium">配送地址：</span><span id="shipping-address" class="text-gray-900"></span></p>
+        </div>
+      </div>
+      <button 
+        onclick="window.location.href='/cart'"
+        class="text-red-500 hover:text-red-600 flex items-center"
+      >
+        <svg class="w-5 h-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/>
+        </svg>
+        修改
+      </button>
+    </div>
+
+    <!-- 发票信息模块 -->
+    <div class="mt-6 pt-6 border-t">
+      <label class="flex items-center cursor-pointer">
+        <input 
+          type="checkbox" 
+          id="need-invoice" 
+          class="w-4 h-4 mr-2 rounded border-gray-300 text-red-600 focus:ring-red-500"
+        >
+        <span class="text-gray-700">需要开具电子发票</span>
+      </label>
+      <div id="invoice-fields" class="hidden mt-4 space-y-3">
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">发票抬头</label>
+          <input 
+            type="text" 
+            id="invoice-title"
+            required
+            class="w-full px-3 py-2 border rounded-md focus:ring-2 focus:ring-red-500 focus:border-red-500"
+            placeholder="请输入单位名称或个人姓名"
+          >
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">纳税人识别号</label>
+          <input 
+            type="text" 
+            id="invoice-tax-id"
+            required
+            class="w-full px-3 py-2 border rounded-md focus:ring-2 focus:ring-red-500 focus:border-red-500"
+            placeholder="请输入18位税号（个人请填写身份证号码）"
+          >
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 订单商品区块 -->
+  <div class="bg-white p-6 rounded-lg shadow-md">
+    <h2 class="text-xl font-semibold mb-4">商品清单</h2>
+    
+    <!-- 表格容器 -->
+    <div class="overflow-x-auto">
+      <table class="w-full min-w-[600px] sm:min-w-0">
+        <!-- 表头 -->
+        <thead class="bg-gray-50">
+          <tr>
+            <!-- 商品图片（小屏幕下隐藏） -->
+            <th class="px-4 py-3 text-left text-sm font-medium text-gray-500 whitespace-nowrap hidden sm:table-cell">商品图片</th>
+            <!-- 商品信息 -->
+            <th class="px-4 py-3 text-left text-sm font-medium text-gray-500 whitespace-nowrap">商品信息</th>
+            <!-- 单价 -->
+            <th class="px-4 py-3 text-left text-sm font-medium text-gray-500 whitespace-nowrap">单价</th>
+            <!-- 数量 -->
+            <th class="px-4 py-3 text-left text-sm font-medium text-gray-500 whitespace-nowrap">数量</th>
+            <!-- 金额 -->
+            <th class="px-4 py-3 text-left text-sm font-medium text-gray-500 whitespace-nowrap">金额</th>
+          </tr>
+        </thead>
+        <tbody id="items-container" class="divide-y divide-gray-200">
+          <!-- 动态渲染商品行 -->
+        </tbody>
+      </table>
+    </div>
+    
+    <!-- 价格汇总 -->
+    <div class="mt-6 pt-4 border-t space-y-4">
+      <div class="flex justify-between">
+        <span class="text-gray-600">商品总价：</span>
+        <span id="subtotal" class="text-gray-900">¥0.00</span>
+      </div>
+      <div class="flex justify-between">
+        <span class="text-gray-600">运费：</span>
+        <span class="text-gray-900">¥0.00</span>
+      </div>
+      <div class="flex justify-between text-lg font-semibold">
+        <span class="text-gray-900">应付总额：</span>
+        <span class="text-red-500" id="total-amount">¥0.00</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 支付操作区块 -->
+  <div class="mt-8 space-y-4 sticky bottom-0 bg-white py-4">
+    <button 
+      id="confirm-payment" 
+      class="w-full bg-red-500 hover:bg-red-600 text-white py-4 rounded-lg text-lg font-medium transition-colors shadow-md"
+    >
+      安全支付（¥<span id="pay-amount">0.00</span>）
+    </button>
+    <div class="text-center text-sm text-gray-500">
+      支付即表示您已同意
+      <a href="/terms" class="text-red-500 hover:underline">《服务协议》</a>
+      和
+      <a href="/privacy" class="text-red-500 hover:underline">《隐私政策》</a>
+    </div>
+  </div>
+</div>
+
+<script>
+  // 全局状态管理
+  let paymentInProgress = false;
+  let countdownInterval = null;
+  const CART_KEY = 'global_cart';
+  const CHECKOUT_KEY = 'checkoutData';
+  const ORDER_SUCCESS_KEY = 'orderSuccessData';
+
+  document.addEventListener('DOMContentLoaded', async () => {
+    const loading = document.getElementById('loading');
+    try {
+      initInvoiceSection();
+      const [checkoutData, cartData] = loadData();
+      validateData(checkoutData, cartData);
+      renderPage(checkoutData);
+      bindEvents();
+    } catch (error) {
+      handleInitError(error);
+    } finally {
+      loading.style.display = 'none';
+    }
+  });
+
+  function initInvoiceSection() {
+    const invoiceCheckbox = document.getElementById('need-invoice');
+    const invoiceFields = document.getElementById('invoice-fields');
+    
+    invoiceCheckbox.addEventListener('change', () => {
+      const isChecked = invoiceCheckbox.checked;
+      invoiceFields.classList.toggle('hidden', !isChecked);
+      
+      if (isChecked) {
+        invoiceFields.querySelectorAll('input').forEach(input => {
+          input.required = true;
+        });
+      } else {
+        invoiceFields.querySelectorAll('input').forEach(input => {
+          input.required = false;
+          input.setCustomValidity('');
+        });
+      }
+    });
+  }
+
+  function loadData() {
+    const checkoutData = JSON.parse(localStorage.getItem(CHECKOUT_KEY));
+    const cartData = JSON.parse(localStorage.getItem(CART_KEY)) || [];
+    
+    if (!checkoutData) throw new Error('订单数据不存在，请重新下单');
+    return [checkoutData, cartData];
+  }
+
+  function validateData(checkoutData, cartData) {
+    if (!checkoutData.cartItems?.length || !checkoutData.shippingInfo) {
+      throw new Error('订单信息不完整');
+    }
+    
+    const MAX_AGE = 30 * 60 * 1000;
+    if (Date.now() - checkoutData.timestamp > MAX_AGE) {
+      localStorage.removeItem(CHECKOUT_KEY);
+      throw new Error('订单已过期，请重新下单');
+    }
+    
+    const cartItemIds = new Set(cartData.map(item => item.uid));
+    const missingItems = checkoutData.cartItems.filter(item => !cartItemIds.has(item.uid));
+    if (missingItems.length > 0) throw new Error('购物车商品已变更，请重新确认订单');
+  }
+
+  function renderPage(data) {
+    document.getElementById('shipping-name').textContent = data.shippingInfo.name;
+    document.getElementById('shipping-phone').textContent = data.shippingInfo.phone;
+    document.getElementById('shipping-address').textContent = data.shippingInfo.address;
+    
+    const container = document.getElementById('items-container');
+    container.innerHTML = data.cartItems.map(item => `
+      <tr class="hover:bg-gray-50 transition-colors">
+        <td class="px-4 py-3 whitespace-nowrap hidden sm:table-cell">
+          <img src="${escapeHTML(item.image)}" 
+               class="w-16 h-16 object-cover rounded-md"
+               onerror="this.src='/images/placeholder-product.jpg'">
+        </td>
+        <td class="px-4 py-3">
+          <h3 class="font-medium">${escapeHTML(item.title)}</h3>
+          ${item.spec ? `<p class="text-sm text-gray-500">规格：${escapeHTML(item.spec)}</p>` : ''}
+        </td>
+        <td class="px-4 py-3 text-gray-700 whitespace-nowrap">¥${item.price.toFixed(2)}</td>
+        <td class="px-4 py-3 text-gray-700 whitespace-nowrap">${item.quantity}</td>
+        <td class="px-4 py-3 text-red-500 font-medium whitespace-nowrap">¥${(item.price * item.quantity).toFixed(2)}</td>
+      </tr>
+    `).join('');
+    
+    const subtotal = data.cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+    document.getElementById('subtotal').textContent = `¥${subtotal.toFixed(2)}`;
+    document.getElementById('total-amount').textContent = `¥${subtotal.toFixed(2)}`;
+    document.getElementById('pay-amount').textContent = subtotal.toFixed(2);
+  }
+
+  function bindEvents() {
+    document.getElementById('confirm-payment').addEventListener('click', handlePayment);
+    document.getElementById('payment-modal').addEventListener('click', e => {
+      if (e.target === document.getElementById('payment-modal')) closePaymentModal();
+    });
+  }
+
+  async function handlePayment() {
+    if (paymentInProgress) return;
+    paymentInProgress = true;
+    
+    try {
+      validateInvoice();
+      saveOrderData();
+      showPaymentModal();
+      startCountdown();
+    } catch (error) {
+      alert(`支付失败: ${error.message}`);
+    } finally {
+      paymentInProgress = false;
+    }
+  }
+
+  function validateInvoice() {
+    const needInvoice = document.getElementById('need-invoice').checked;
+    if (!needInvoice) return;
+    
+    const title = document.getElementById('invoice-title').value.trim();
+    const taxId = document.getElementById('invoice-tax-id').value.trim();
+    
+    if (!title) throw new Error('请输入发票抬头');
+    if (taxId && taxId.length !== 18) throw new Error('纳税人识别号应为18位');
+  }
+
+  function saveOrderData() {
+    const checkoutData = JSON.parse(localStorage.getItem(CHECKOUT_KEY));
+    const orderData = {
+      orderNumber: `ORDER_${Date.now()}`,
+      items: checkoutData.cartItems,
+      shippingInfo: checkoutData.shippingInfo,
+      total: parseFloat(document.getElementById('total-amount').textContent.slice(1)),
+      timestamp: new Date().toLocaleString(),
+      invoice: document.getElementById('need-invoice').checked ? {
+        title: document.getElementById('invoice-title').value,
+        taxId: document.getElementById('invoice-tax-id').value
+      } : null
+    };
+    localStorage.setItem(ORDER_SUCCESS_KEY, JSON.stringify(orderData));
+  }
+
+  function startCountdown() {
+    let seconds = 120;
+    const countdownElement = document.getElementById('countdown-time');
+    
+    countdownInterval = setInterval(() => {
+      countdownElement.textContent = seconds--;
+      if(seconds < 0) {
+        clearInterval(countdownInterval);
+        closePaymentModal();
+        window.location.href = '/order-success/';
+      }
+    }, 1000);
+  }
+
+  function handleInitError(error) {
+    console.error('初始化错误:', error);
+    localStorage.removeItem(CHECKOUT_KEY);
+    alert(error.message);
+    window.location.href = '/cart';
+  }
+
+  function showPaymentModal() {
+    const modal = document.getElementById('payment-modal');
+    modal.classList.remove('hidden');
+    document.body.classList.add('overflow-hidden');
+  }
+
+  function closePaymentModal() {
+    clearInterval(countdownInterval);
+    const modal = document.getElementById('payment-modal');
+    modal.classList.add('hidden');
+    document.body.classList.remove('overflow-hidden');
+    document.querySelectorAll('[id$="-qr"]').forEach(el => el.classList.add('hidden'));
+  }
+
+  function showQRCode(type) {
+    document.querySelectorAll('[id$="-qr"]').forEach(el => el.classList.add('hidden'));
+    document.getElementById(`${type}-qr`).classList.remove('hidden');
+  }
+
+  function escapeHTML(str) {
+    return str.replace(/&/g, '&amp;')
+             .replace(/</g, '&lt;')
+             .replace(/>/g, '&gt;')
+             .replace(/"/g, '&quot;')
+             .replace(/'/g, '&#39;');
+  }
+</script>
+
+<style>
+  .payment-method-btn {
+    border: 2px solid #e5e7eb;
+    border-radius: 0.75rem;
+    padding: 1rem;
+    transition: all 0.2s;
+  }
+  .payment-method-btn:hover {
+    border-color: #ef4444;
+    box-shadow: 0 2px 8px rgba(239, 68, 68, 0.1);
+  }
+
+  .sticky {
+    position: sticky;
+    bottom: 20px;
+    background: rgba(255,255,255,0.95);
+    backdrop-filter: blur(5px);
+    box-shadow: 0 -4px 12px rgba(0,0,0,0.05);
+    z-index: 10;
+  }
+
+  @keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(5px); }
+    75% { transform: translateX(-5px); }
+  }
+</style>
+
+{{ end }}

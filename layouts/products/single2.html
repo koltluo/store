@@ -1,0 +1,634 @@
+{{ define "main" }}
+<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+
+<div class="container max-w-7xl mx-auto px-4 py-8">
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+    <!-- 商品图片轮播 -->
+    <div>
+      <div class="swiper-container main-slider">
+        <div class="swiper-wrapper">
+          {{ range .Params.images }}
+          <div class="swiper-slide">
+            <img src="{{ . }}" class="w-full h-full object-cover bg-gray-100 rounded-lg" alt="商品图片">
+          </div>
+          {{ end }}
+        </div>
+        <div class="swiper-pagination"></div>
+      </div>
+
+      <!-- 缩略图导航 -->
+      <div class="swiper-container thumb-slider mt-4">
+        <div class="swiper-wrapper">
+          {{ range .Params.images }}
+          <div class="swiper-slide">
+            <img src="{{ . }}" class="rounded-md" alt="缩略图">
+          </div>
+          {{ end }}
+        </div>
+      </div>
+    </div>
+
+    <!-- 商品信息 -->
+    <div class="space-y-6">
+      <!-- 标题 -->
+      <h1 class="text-3xl font-bold text-gray-900">{{ .Title }}</h1>
+
+      <!-- 价格显示 -->
+      <div class="bg-gray-50 p-4 rounded-lg">
+        <div class="space-y-2">
+          <div class="flex items-center gap-4">
+            <span class="text-3xl font-bold text-red-600" id="price">¥{{ .Params.price }}</span>
+            <del class="text-gray-500 text-xl" id="originalPrice">¥{{ .Params.originalPrice }}</del>
+<!-- 修改后的安全代码 -->
+ {{ if and (.Params.originalPrice) (gt .Params.originalPrice .Params.price) }}
+ <span class="text-green-600 bg-green-100 px-2 py-1 rounded" id="savings">  
+  立省¥{{ sub (float .Params.originalPrice) (float .Params.price) | lang.FormatNumber 2 }}
+</span>
+{{ end }}          
+</div>
+          <div class="text-sm text-gray-500">
+            累计销量 {{ .Params.sales }} 件
+          </div>
+        </div>
+      </div>
+
+      <!-- 规格选择 -->
+      <div class="space-y-4">
+        {{ range .Params.specifications }}
+        <div>
+          <h3 class="text-lg font-medium mb-2">{{ .name }}</h3>
+          <div class="flex flex-wrap gap-2">
+            {{ range .options }}
+            <button 
+              class="px-4 py-2 border rounded-md hover:border-red-500 spec-btn"
+              data-spec="{{ .name }}"
+              data-price="{{ .price }}"
+              data-original-price="{{ .originalPrice }}"
+            >
+              {{ .name }}
+            </button>
+            {{ end }}
+          </div>
+        </div>
+        {{ end }}
+      </div>
+
+      <!-- 数量选择 -->
+      <div class="flex items-center gap-4">
+        <span class="text-lg">数量</span>
+        <div class="flex items-center border rounded-md">
+          <button 
+            class="px-3 py-2 border-r hover:bg-gray-100 quantity-btn" 
+            data-action="decrease"
+          >-</button>
+          <input 
+            type="number" 
+            value="1" 
+            min="1" 
+            class="w-16 text-center outline-none"
+            id="quantity"
+          >
+          <button 
+            class="px-3 py-2 border-l hover:bg-gray-100 quantity-btn"
+            data-action="increase"
+          >+</button>
+        </div>
+      </div>
+
+      <!-- 操作按钮 -->
+      <div class="flex gap-4">
+        <button 
+          id="buy-now-btn" 
+          class="flex-1 bg-red-500 text-white py-3 rounded-md hover:bg-red-600"
+        >
+          立即购买
+        </button>
+        <button class="flex-1 bg-gray-100 text-gray-800 py-3 rounded-md hover:bg-gray-200 add-to-favorites-btn">
+          加入收藏
+        </button>
+      </div>
+      <!-- 产品参数 -->
+      <div class="specs-box mt-8 p-6 bg-gray-50 rounded-xl">
+        <h3 class="text-xl font-semibold mb-4">技术参数</h3>
+        <dl class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {{ range $key, $value := .Params.specs }}
+          <div class="spec-item">
+            <dt class="text-gray-600 font-medium">{{ $key | humanize }}</dt>
+            <dd class="text-gray-800">{{ $value }}</dd>
+          </div>
+          {{ end }}
+        </dl>
+      </div>
+
+
+    </div>
+  </div>
+
+  <!-- 商品详情 -->
+  <div class="mt-12 border-t pt-8">
+    <h2 class="text-2xl font-bold mb-6">商品详情</h2>
+    <div class="content" >
+      {{ .Content }}
+    </div>
+  </div>
+<!-- 新增相关商品推荐 -->
+<div class="mt-12 border-t pt-8">
+    <h2 class="text-2xl font-bold mb-6">相关推荐</h2>
+    <div class="swiper-container related-slider">
+      <div class="swiper-wrapper">
+        {{ $related := where .Site.RegularPages "Type" "products" | first 8 }}
+        {{ range $related }}
+        <div class="swiper-slide">
+          <a href="{{ .RelPermalink }}" class="block group" target="_blank" title="{{ .Title }}" >
+            <div class="aspect-square bg-gray-100 rounded-lg overflow-hidden">
+              <img src="{{ index .Params.images 0 }}" 
+                   class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                   loading="lazy"
+                   alt="{{ .Title }}">
+            </div>
+            <div class="mt-4">
+              <h3 class="font-medium text-gray-900 line-clamp-2 mb-1">{{ .Title }}</h3>
+              <div class="flex items-center gap-2">
+                <span class="text-red-600 font-bold">¥{{ .Params.price }}</span>
+                {{ if .Params.originalPrice }}
+                <del class="text-gray-400 text-sm">¥{{ .Params.originalPrice }}</del>
+                {{ end }}
+              </div>
+            </div>
+          </a>
+        </div>
+        {{ end }}
+      </div>
+      <div class="swiper-button-next"></div>
+      <div class="swiper-button-prev"></div>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- 购物车侧边栏 -->
+<div id="cart-sidebar" class="fixed top-0 right-0 w-96 h-full bg-white shadow-xl transform translate-x-full transition-transform duration-300 z-50 flex flex-col">
+  <!-- 头部 -->
+  <div class="p-6 border-b flex justify-between items-center bg-gray-50">
+    <h2 class="text-2xl font-bold text-gray-800">我的购物车</h2>
+    <button id="close-cart" class="text-3xl text-gray-500 hover:text-gray-800 transition-colors">×</button>
+  </div>
+  <!-- 商品列表区域 -->
+  <div class="flex-1 overflow-y-auto p-6 space-y-6">
+    <!-- 动态商品内容将出现在这里 -->
+  </div>
+  <!-- 底部结算 -->
+  <div class="border-t p-6 bg-gray-50">
+    <div class="flex justify-between items-center mb-4">
+      <span class="text-lg font-semibold">商品合计：</span>
+      <span class="text-2xl font-bold text-red-500" id="total-amount">¥0.00</span>
+    </div>
+    <button id="checkout-btn" class="w-full bg-red-500 hover:bg-red-600 text-white py-4 rounded-lg text-lg font-medium transition-colors">
+        立即结算（<span id="total-quantity">0</span> 件）
+      </button>  </div>
+</div>
+
+<!-- 模态框 -->
+<div id="checkout-modal" class="fixed inset-0 bg-gray-600 bg-opacity-50 flex justify-center items-center hidden z-50">
+    <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
+      <h2 class="text-2xl font-bold mb-4">收货信息</h2>
+      <form id="checkout-form">
+        <div class="mb-4">
+          <label for="name" class="block text-gray-700 font-medium mb-2">姓名</label>
+          <input type="text" id="name" name="name" class="w-full p-2 border rounded" required>
+        </div>
+        <div class="mb-4">
+          <label for="address" class="block text-gray-700 font-medium mb-2">地址</label>
+          <input type="text" id="address" name="address" class="w-full p-2 border rounded" required>
+        </div>
+        <div class="mb-4">
+          <label for="phone" class="block text-gray-700 font-medium mb-2">电话</label>
+          <input type="tel" id="phone" name="phone" class="w-full p-2 border rounded" required>
+        </div>
+        <div class="flex justify-end gap-4">
+          <button type="button" id="cancel-checkout" class="px-4 py-2 bg-gray-300 text-gray-700 rounded hover:bg-gray-400">取消</button>
+          <button type="submit" class="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600">提交</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+<!-- 轮播图脚本 -->
+<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+<script>
+  window.addEventListener('load', () => {
+    const thumbSlider = new Swiper('.thumb-slider', {
+      spaceBetween: 10,
+      slidesPerView: 6,
+      freeMode: true,
+      watchSlidesProgress: true,
+    });
+
+    const mainSlider = new Swiper('.main-slider', {
+      loop: true,
+      autoplay: {
+        delay: 3000,
+        disableOnInteraction: false,
+      },
+      pagination: {
+        el: '.swiper-pagination',
+        clickable: true,
+      },
+      spaceBetween: 10,
+      thumbs: {
+        swiper: thumbSlider,
+      },
+    });
+
+    // 新增相关商品轮播
+    new Swiper('.related-slider', {
+      slidesPerView: 2,
+      spaceBetween: 20,
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      },
+      breakpoints: {
+        640: {
+          slidesPerView: 3,
+        },
+        1024: {
+          slidesPerView: 4,
+        }
+      }
+    });
+
+  });
+
+  // 规格选择逻辑
+  document.querySelectorAll('.spec-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+      document.getElementById('price').textContent = `¥${this.dataset.price}`;
+      document.getElementById('originalPrice').textContent = `¥${this.dataset.originalPrice}`;
+      document.getElementById('savings').textContent = `立省¥${this.dataset.originalPrice - this.dataset.price}`;
+      
+      document.querySelectorAll('.spec-btn').forEach(b => b.classList.remove('border-red-500'));
+      this.classList.add('border-red-500');
+    });
+  });
+
+  // 数量增减逻辑
+  document.querySelectorAll('.quantity-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+      const input = document.getElementById('quantity');
+      let value = parseInt(input.value);
+      
+      if(this.dataset.action === 'increase') {
+        input.value = value + 1;
+      } else {
+        input.value = value > 1 ? value - 1 : 1;
+      }
+    });
+  });
+
+  // 加入收藏逻辑
+  document.querySelector('.add-to-favorites-btn').addEventListener('click', function () {
+    const url = window.location.href;
+    const title = document.title;
+
+    try {
+      if (window.external && 'AddFavorite' in window.external) {
+        window.external.AddFavorite(url, title);
+      } else {
+        alert('请按 Ctrl+D 将此页面加入收藏夹。');
+      }
+    } catch (e) {
+      alert('您的浏览器不支持自动加入收藏夹功能，请使用 Ctrl+D 手动添加。');
+    }
+  });
+
+  // 修改后的立即购买按钮逻辑
+  document.getElementById('buy-now-btn').addEventListener('click', function () {
+    const cartContent = document.querySelector('#cart-sidebar .overflow-y-auto');
+    const quantity = parseInt(document.getElementById('quantity').value);
+    
+    // 获取选中的规格
+    const selectedSpec = document.querySelector('.spec-btn.border-red-500');
+    const specName = selectedSpec ? selectedSpec.dataset.spec : '默认型号';
+    
+    // 获取商品信息
+    const productInfo = {
+      title: document.querySelector('h1').textContent,
+      spec: specName,
+      price: selectedSpec ? parseFloat(selectedSpec.dataset.price) : parseFloat({{ .Params.price }}),
+      thumb: {{ index .Params.images 0 }}, // 取第一张图片
+      quantity: quantity
+    };
+    
+    // 生成购物车条目，包含规格和删除按钮
+    cartContent.innerHTML = `
+      <div class="cart-item flex items-start mb-4">
+        <img src="${productInfo.thumb}" class="w-16 h-16 object-cover rounded-md mr-3" alt="商品图">
+        <div class="flex-1">
+          <p class="font-bold text-sm">${productInfo.title} - ${productInfo.spec}</p>
+          <div class="flex items-center justify-between mt-1">
+            <div class="flex items-center">
+              <button class="quantity-minus px-2 py-1 border hover:bg-gray-100">-</button>
+              <input type="number" value="${quantity}" min="1" 
+                     class="w-12 text-center border-t border-b outline-none quantity-input">
+              <button class="quantity-plus px-2 py-1 border hover:bg-gray-100">+</button>
+            </div>
+            <div>
+              <p class="text-red-500 text-sm">¥${productInfo.price.toFixed(2)}</p>
+              <p class="text-gray-500 text-xs">x${quantity}</p>
+            </div>
+          </div>
+        </div>
+        <button class="delete-item text-red-500 hover:text-red-700 ml-2">删除</button>
+      </div>
+      ${cartContent.innerHTML} <!-- 保留原有内容，新商品添加在最前面 -->
+    `;
+    
+    // 显示购物车并更新合计
+    document.getElementById('cart-sidebar').classList.remove('translate-x-full');
+    updateTotalAmount();
+  });
+
+  // 数量调整和删除功能（使用事件委托）
+  document.querySelector('#cart-sidebar').addEventListener('click', function(e) {
+    const target = e.target;
+    const item = target.closest('.cart-item');
+    
+    if (target.classList.contains('quantity-minus') || 
+        target.classList.contains('quantity-plus')) {
+      const input = item.querySelector('.quantity-input');
+      let quantity = parseInt(input.value);
+      
+      if (target.classList.contains('quantity-minus')) {
+        input.value = quantity > 1 ? quantity - 1 : 1;
+      } else {
+        input.value = quantity + 1;
+      }
+      
+      updateItemTotal(item);
+      updateTotalAmount();
+    }
+    
+    // 删除商品
+    if (target.classList.contains('delete-item')) {
+      item.remove();
+      updateTotalAmount();
+    }
+  });
+
+  // 输入框直接修改数量
+  document.querySelector('#cart-sidebar').addEventListener('change', function(e) {
+    if (e.target.classList.contains('quantity-input')) {
+      const item = e.target.closest('.cart-item');
+      e.target.value = Math.max(1, parseInt(e.target.value) || 1);
+      updateItemTotal(item);
+      updateTotalAmount();
+    }
+  });
+
+  // 更新单个商品小计
+  function updateItemTotal(item) {
+    const price = parseFloat(item.querySelector('.text-red-500').textContent.replace('¥', ''));
+    const quantity = parseInt(item.querySelector('.quantity-input').value);
+    item.querySelector('.text-xs').textContent = `x${quantity}`;
+  }
+
+  // 更新购物车总金额
+  function updateTotalAmount() {
+    let total = 0;
+    let totalQuantity = 0;
+    document.querySelectorAll('.cart-item').forEach(item => {
+      const price = parseFloat(item.querySelector('.text-red-500').textContent.replace('¥', ''));
+      const quantity = parseInt(item.querySelector('.quantity-input').value);
+      total += price * quantity;
+      totalQuantity += quantity;
+    });
+    document.getElementById('total-amount').textContent = `¥${total.toFixed(2)}`;
+    document.getElementById('total-quantity').textContent = totalQuantity;
+  }
+
+  // 关闭购物车逻辑
+  document.getElementById('close-cart').addEventListener('click', function () {
+    document.getElementById('cart-sidebar').classList.add('translate-x-full');
+  });
+
+  // 显示模态框
+function showModal() {
+  document.getElementById('checkout-modal').classList.remove('hidden');
+}
+
+// 隐藏模态框
+function hideModal() {
+  document.getElementById('checkout-modal').classList.add('hidden');
+}
+
+// 绑定“立即结算”按钮的点击事件
+document.getElementById('checkout-btn').addEventListener('click', function () {
+  showModal();
+});
+
+// 绑定“取消”按钮的点击事件
+document.getElementById('cancel-checkout').addEventListener('click', function () {
+  hideModal();
+});
+
+
+document.getElementById('checkout-form').addEventListener('submit', function(event) {
+  event.preventDefault();
+
+  // 收集购物车数据
+  const cartItems = Array.from(document.querySelectorAll('.cart-item')).map(item => ({
+    title: item.querySelector('.font-bold').textContent.split(' - ')[0],
+    spec: item.querySelector('.font-bold').textContent.split(' - ')[1] || '默认规格',
+    price: parseFloat(item.querySelector('.text-red-500').textContent.replace('¥', '')),
+    quantity: parseInt(item.querySelector('.quantity-input').value),
+    thumb: item.querySelector('img').src
+  }));
+
+  // 收集收货信息
+  const shippingInfo = {
+    name: document.getElementById('name').value,
+    address: document.getElementById('address').value,
+    phone: document.getElementById('phone').value
+  };
+
+  // 存储到localStorage
+  localStorage.setItem('checkoutData', JSON.stringify({
+    cartItems,
+    shippingInfo,
+    timestamp: new Date().getTime() // 添加时间戳用于验证
+  }));
+
+  // 跳转到支付页面
+  window.location.href = '/payment/';
+});
+
+</script>
+
+<style>
+    /* 基础样式 */
+    .swiper-container {
+      position: relative;
+      overflow: hidden;
+    }
+  
+    /* 主图样式 */
+    .main-slider {
+      margin-bottom: 1rem;
+      width: 100%;
+      max-width: 600px; /* 主图变大 */
+      aspect-ratio: 1 / 1;
+      overflow: hidden;
+      display: block;
+      margin-left: 0; /* 左对齐 */
+    }
+  
+    .main-slider .swiper-slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      loading: "lazy"; /* 懒加载图片 */
+    }
+  
+    /* 缩略图样式 */
+    .thumb-slider {
+      display: flex;
+      justify-content: flex-start; /* 缩略图左对齐 */
+      align-items: center;
+      margin-left: 0; /* 确保左对齐 */
+    }
+  
+    .thumb-slider .swiper-slide img {
+      width: 80px;
+      height: 80px;
+      object-fit: cover;
+      border-radius: 0.5rem;
+    }
+  
+    /* 购物车侧边栏样式 */
+    #cart-sidebar {
+      box-shadow: -2px 0 8px rgba(0,0,0,0.1);
+      width: 100%; /* 小屏幕上全屏 */
+      max-width: 24rem; /* 桌面端最大宽度为24rem */
+    }
+  
+    @media (min-width: 640px) {
+      #cart-sidebar {
+        width: 24rem; /* 在sm及以上屏幕恢复为24rem */
+      }
+    }
+  
+    /* 购物车商品条目样式 */
+    .cart-item {
+      border-bottom: 1px solid #eee;
+      padding-bottom: 1rem;
+    }
+  
+    /* 数量输入框和按钮样式 */
+    .quantity-input::-webkit-inner-spin-button,
+    .quantity-input::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+    .quantity-input {
+      -moz-appearance: textfield;
+    }
+    .quantity-minus, .quantity-plus, .quantity-input {
+      height: 2rem;
+      line-height: 2rem;
+      padding: 0 0.5rem;
+      box-sizing: border-box;
+    }
+    .quantity-input {
+      width: 3rem;
+      text-align: center;
+      border-left: none;
+      border-right: none;
+    }
+  
+    /* 按钮和链接的最小尺寸 */
+    .spec-btn, .quantity-btn, #buy-now-btn, .add-to-favorites-btn {
+      min-width: 44px;
+      min-height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  
+  /* 技术参数样式 */
+  .specs-box dl {
+    display: flex;
+    flex-wrap: wrap; /* 允许多行显示 */
+  }
+
+  .specs-box .spec-item {
+    display: flex; /* 每个参数项使用 Flexbox */
+    width: 100%; /* 确保占满一行 */
+  }
+
+  .specs-box dt {
+    flex: 0 0 30%; /* 术语固定宽度为 30% */
+    font-weight: medium;
+    color: #4a4a4a;
+  }
+
+  .specs-box dd {
+    flex: 0 0 70%; /* 描述占剩余 70% */
+    margin-left: 0; /* 移除默认左边距 */
+    color: #333;
+  }
+
+  /* 新增相关商品样式 */
+  .related-slider {
+    padding: 0 2rem;
+  }
+  .related-slider .swiper-slide {
+    width: 280px;
+  }
+  .related-slider .swiper-button-next,
+  .related-slider .swiper-button-prev {
+    @apply text-gray-900 bg-white/80 backdrop-blur shadow-lg rounded-full w-8 h-8;
+    --swiper-navigation-size: 1.2rem;
+    top: 35%;
+  }
+  .related-slider .swiper-button-next::after,
+  .related-slider .swiper-button-prev::after {
+    font-weight: 900;
+  }
+
+  /* 响应式调整：中等屏幕及以上使用两列布局 */
+  @media (min-width: 768px) {
+    .specs-box dl {
+      display: grid;
+      grid-template-columns: 1fr 1fr; /* 两列布局 */
+    }
+    .specs-box .spec-item {
+      width: 100%; /* 保持每个参数项占满列 */
+    }
+  }
+
+
+  /* 模态框样式 */
+
+  #checkout-modal {
+  display: none; /* 默认隐藏 */
+}
+
+#checkout-modal:not(.hidden) {
+  display: flex; /* 显示时使用 flex 布局 */
+}
+
+
+    /* 响应式文字大小 */
+    .text-base {
+      font-size: 1rem;
+    }
+    @media (min-width: 640px) {
+      .text-base {
+        font-size: 1.125rem;
+      }
+    }
+  </style>
+  
+  {{ end }}

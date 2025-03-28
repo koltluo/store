@@ -1,0 +1,118 @@
+{{- $enableFooterSwitches := .Scratch.Get "enableFooterSwitches" | default false -}}
+{{- $displayThemeToggle := site.Params.theme.displayToggle | default true -}}
+{{- $footerSwitchesVisible := and $enableFooterSwitches (or hugo.IsMultilingual $displayThemeToggle) -}}
+{{- $copyrightSectionVisible := or (.Site.Params.footer.displayPoweredBy | default true) .Site.Params.footer.displayCopyright -}}
+
+{{- $copyright := (T "copyright") | default "© 2024 Hextra." -}}
+{{- $poweredBy := (T "poweredBy") | default "Powered by Hextra" -}}
+
+{{- $footerWidth := "max-w-screen-xl" -}}
+{{- with .Site.Params.footer.width -}}
+  {{ if eq . "wide" -}}
+    {{ $footerWidth = "max-w-[90rem]" -}}
+  {{ else if eq . "full" -}}
+    {{ $footerWidth = "max-w-full" -}}
+  {{ end -}}
+{{- end -}}
+
+<footer class="bg-gray-100 pb-[env(safe-area-inset-bottom)] dark:bg-neutral-900 print:bg-transparent">
+  {{- if $footerSwitchesVisible -}}
+    <div class="mx-auto flex gap-2 py-2 px-4 {{ $footerWidth }}">
+      {{- partial "language-switch.html" (dict "context" .) -}}
+      {{- with $displayThemeToggle }}{{ partial "theme-toggle.html" }}{{ end -}}
+    </div>
+    {{- if or hugo.IsMultilingual $displayThemeToggle -}}
+      <hr class="dark:border-neutral-800" />
+    {{- end -}}
+  {{- end -}}
+
+  <div class="{{ $footerWidth }} mx-auto pl-[max(env(safe-area-inset-left),1.5rem)] pr-[max(env(safe-area-inset-right),1.5rem)] text-gray-600 dark:text-gray-400">
+    {{- partial "custom/footer.html" (dict "context" . "switchesVisible" $footerSwitchesVisible "copyrightVisible" $copyrightSectionVisible) -}}
+  </div>
+
+  {{- if $copyrightSectionVisible -}}
+    <div class="{{ $footerWidth }} mx-auto flex justify-center py-12 pl-[max(env(safe-area-inset-left),1.5rem)] pr-[max(env(safe-area-inset-right),1.5rem)] text-gray-600 dark:text-gray-400 md:justify-start">
+      <div class="flex w-full flex-col items-center sm:items-start">
+        {{- if (.Site.Params.footer.displayPoweredBy | default true) -}}
+          <div class="font-semibold">{{ template "theme-credit" $poweredBy }}</div>
+        {{- end -}}
+        {{- if .Site.Params.footer.displayCopyright -}}
+          <div class="mt-6 text-xs">{{ $copyright | markdownify }}</div>
+        {{- end -}}
+      </div>
+    </div>
+  {{- end -}}
+
+  <div class="container mx-auto px-4 pt-8">
+    <div class="grid grid-cols-1 gap-8 md:grid-cols-4">
+      <!-- 关于我们 -->
+      <div>
+        <h4 class="mb-4 text-lg font-semibold">关于我们</h4>
+        <p class="space-y-2">{{ .Site.Params.footer.company.description }}</p>
+      </div>
+
+      <!-- 快速链接 -->
+      <div>
+        <h4 class="mb-4 text-lg font-semibold">快速链接</h4>
+        <ul class="space-y-2">
+          <li><a href="/products" class="transition duration-300 hover:text-blue-400">产品展示</a></li>
+          <li><a href="/docs" class="transition duration-300 hover:text-blue-400">技术文档</a></li>
+          <li><a href="/blog" class="transition duration-300 hover:text-blue-400">行业资讯</a></li>
+          <li><a href="/inverter-selection-system" class="transition duration-300 hover:text-blue-400">变频器选型系统</a></li>
+          <li><a href="/soft-starter-selection-system" class="transition duration-300 hover:text-blue-400">软启动选型系统</a></li>
+        </ul>
+      </div>
+
+      <!-- 联系信息 -->
+      <div>
+        <h3 class="mb-4 text-lg font-semibold">联系我们</h3>
+        <ul class="space-y-2">
+          <li>地址: {{ .Site.Params.footer.contact.address }}</li>
+          <li>电话: {{ .Site.Params.footer.contact.phone }}</li>
+          <li>邮箱: {{ .Site.Params.footer.contact.email }}</li>
+          <li>工作时间: {{ .Site.Params.footer.contact.hours }}</li>
+        </ul>
+      </div>
+
+      <!-- 关注我们 -->
+      <div>
+        <h4 class="mb-4 text-lg font-semibold">关注我们</h4>
+        <!-- 二维码区域 -->
+        <div class="flex items-center justify-center space-x-3">
+          <!-- 公众号二维码 -->
+          <div class="text-center">
+            <img src="/images/qygzh.jpg" alt="公众号二维码" class="mx-auto h-24 w-24 rounded shadow-md">
+            <p class="mt-1 text-sm text-gray-600">公众号</p>
+          </div>
+          <!-- 抖音二维码 -->
+          <div class="text-center">
+            <img src="/images/douyin.jpg" alt="抖音二维码" class="mx-auto h-24 w-24 rounded shadow-md">
+            <p class="mt-1 text-sm text-gray-600">抖音</p>
+          </div>
+          <!-- 微信二维码 -->
+          <div class="text-center">
+            <img src="/images/sk-wechat.jpg" alt="微信二维码" class="mx-auto h-24 w-24 rounded shadow-md">
+            <p class="mt-1 text-sm text-gray-600">微信</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 版权信息 -->
+    <div class="mt-8 border-t border-gray-700 pt-4 text-center text-gray-400">
+      <p>&copy; {{ now.Year }} {{ .Site.Params.footer.company.name }} All rights reserved.</p>
+      <p class="text-sm"><a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener">{{ .Site.Params.footer.icp }}</a></p>
+    </div>
+  </div>
+</footer>
+
+{{- define "theme-credit" -}}
+  <a class="flex items-center gap-1 text-sm text-current" target="_blank" rel="noopener noreferrer" title="Hextra GitHub Homepage" href="https://github.com/imfing/hextra">
+    <span>
+      {{- . | markdownify -}}
+      {{- if strings.Contains . "Hextra" -}}
+        {{- partial "utils/icon.html" (dict "name" "hextra" "attributes" `height=1em class="inline-block ltr:ml-1 rtl:mr-1 align-[-2.5px]"`) -}}
+      {{- end -}}
+    </span>
+  </a>
+{{- end -}}

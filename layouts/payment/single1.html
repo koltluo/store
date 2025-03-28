@@ -1,0 +1,51 @@
+{{ define "main" }}
+
+  <div class="container mx-auto p-4">
+    <h1 class="text-2xl font-bold mb-4">订单详情</h1>
+    <div id="shipping-info" class="mb-4"></div>
+    <div id="cart-items" class="mb-4"></div>
+    <button id="pay-btn" class="bg-green-500 text-white px-4 py-2 rounded">确认支付</button>
+  </div>
+
+  <script>
+    // 从 sessionStorage 获取数据
+    const cartItems = JSON.parse(sessionStorage.getItem('cartItems')) || [];
+    const shippingInfo = JSON.parse(sessionStorage.getItem('shippingInfo')) || {};
+
+    // 显示收货信息
+    const shippingDiv = document.getElementById('shipping-info');
+    shippingDiv.innerHTML = `
+      <h2 class="text-xl font-semibold">收货信息</h2>
+      <p>姓名: ${shippingInfo.name || '未填写'}</p>
+      <p>地址: ${shippingInfo.address || '未填写'}</p>
+      <p>电话: ${shippingInfo.phone || '未填写'}</p>
+    `;
+
+    // 显示购物车商品
+    const cartDiv = document.getElementById('cart-items');
+    if (cartItems.length > 0) {
+      cartDiv.innerHTML = '<h2 class="text-xl font-semibold">商品列表</h2>';
+      cartItems.forEach(item => {
+        cartDiv.innerHTML += `
+          <div class="border-b py-2">
+            <p>${item.title}</p>
+            <p>价格: ¥${item.price.toFixed(2)}</p>
+            <p>数量: ${item.quantity}</p>
+          </div>
+        `;
+      });
+    } else {
+      cartDiv.innerHTML = '<p>购物车为空</p>';
+    }
+
+    // 支付按钮点击事件
+    document.getElementById('pay-btn').addEventListener('click', function () {
+      alert('支付成功！');
+      sessionStorage.removeItem('cartItems');
+      sessionStorage.removeItem('shippingInfo');
+      // 可根据需求跳转到其他页面
+    });
+  </script>
+
+
+{{ end }}

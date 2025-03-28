@@ -1,0 +1,272 @@
+{{ define "main" }}
+<div class="container max-w-7xl mx-auto px-4 py-8">
+    <div class="flex flex-col md:flex-row gap-8">
+      <!-- 筛选侧边栏 -->
+      <div class="w-full md:w-64 space-y-6">
+        <!-- 价格筛选 -->
+        <div class="bg-white p-4 rounded-lg shadow-sm border">
+          <h3 class="font-bold mb-3">价格区间</h3>
+          <div class="flex gap-2">
+            <input type="number" placeholder="最低价" class="w-1/2 p-2 border rounded" id="minPrice">
+            <input type="number" placeholder="最高价" class="w-1/2 p-2 border rounded" id="maxPrice">
+          </div>
+        </div>
+  
+        <!-- 分类筛选 -->
+        <div class="bg-white p-4 rounded-lg shadow-sm border">
+          <h3 class="font-bold mb-3">商品分类</h3>
+          <ul class="space-y-2">
+            {{ range .Site.Taxonomies.categories }}
+            <li>
+              <label class="flex items-center space-x-2 cursor-pointer">
+                <input type="checkbox" class="form-checkbox" value="{{ .Page.Title }}">
+                <span>{{ .Page.Title }}</span>
+                <span class="text-gray-500 text-sm">({{ .Count }})</span>
+              </label>
+            </li>
+            {{ end }}
+          </ul>
+        </div>
+  
+        <!-- 品牌筛选 -->
+        <div class="bg-white p-4 rounded-lg shadow-sm border">
+          <h3 class="font-bold mb-3">品牌</h3>
+          <ul class="space-y-2">
+            {{ range .Site.Taxonomies.brands }}
+            <li>
+              <label class="flex items-center space-x-2 cursor-pointer">
+                <input type="checkbox" class="form-checkbox" value="{{ .Page.Title }}">
+                <span>{{ .Page.Title }}</span>
+                <span class="text-gray-500 text-sm">({{ .Count }})</span>
+              </label>
+            </li>
+            {{ end }}
+          </ul>
+        </div>
+      </div>
+  
+      <!-- 主内容区 -->
+      <div class="flex-1">
+        <!-- 排序和结果统计 -->
+        <div class="bg-white p-4 rounded-lg shadow-sm border mb-6">
+          <div class="flex flex-col md:flex-row justify-between items-start md:items-center">
+            <div class="mb-2 md:mb-0">
+              共找到 <span class="text-red-500 font-bold">{{ len .Pages }}</span> 件商品
+            </div>
+            <div class="flex items-center gap-4">
+              <span>排序：</span>
+              <select class="border rounded-md px-3 py-2" id="sortSelect">
+                <option value="newest">最新上架</option>
+                <option value="price_asc">价格从低到高</option>
+                <option value="price_desc">价格从高到低</option>
+                <option value="sales">销量优先</option>
+              </select>
+            </div>
+          </div>
+        </div>
+  
+   <!-- 修改后的商品列表 -->
+   <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+      {{ range .Pages }}
+      <div class="bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300">
+        <a href="{{ .RelPermalink }}" class="block">
+          <div class="aspect-square bg-gray-100 relative">
+            <img src="{{ index .Params.images 0 }}" 
+                 class="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
+                 loading="lazy"
+                 alt="{{ .Title }}">
+                 {{ if .Params.originalPrice }}
+                 <div class="absolute top-2 right-2 bg-red-500 text-white px-2 py-1 rounded-full text-xs">
+                   立省 ¥{{ sub .Params.originalPrice .Params.price }}
+                 </div>
+                 {{ end }}
+  
+          </div>
+          <div class="p-4">
+            <h3 class="font-medium text-gray-900 line-clamp-2 mb-2">{{ .Title }}</h3>
+            <div class="flex items-center gap-2">
+              <span class="text-red-600 font-bold text-lg">¥{{ .Params.price }}</span>
+              {{ if .Params.originalPrice }}
+              <del class="text-gray-400 text-sm">¥{{ .Params.originalPrice }}</del>
+              {{ end }}
+            </div>
+            <div class="mt-2 flex items-center justify-between text-sm text-gray-500">
+              <span>销量 {{ .Params.sales }}</span>
+              <span>库存 {{ .Params.stock }}</span>
+            </div>
+          </div>
+        </a>
+    <!-- 加入购物车 -->
+       
+      <button 
+      class="w-full add-to-cart-btn bg-red-500 hover:bg-red-600 text-white py-2 transition-colors block text-center"        
+      data-product-id="{{ .Params.id }}"          
+      data-title="{{ .Title }}"          
+      data-price="{{ .Params.price }}"          
+      data-image="{{ index .Params.images 0 }}" 
+      >   
+           加入购物车  
+      </button>   
+
+      </div>
+      {{ end }}
+    </div>
+  
+  
+        <!-- 分页 -->
+        <div class="mt-8 flex justify-center">
+          {{ $paginator := .Paginate (where .Pages "Type" "products") }}
+          {{ template "_internal/pagination.html" . }}
+                </div>
+      </div>
+    </div>
+  </div>
+  
+
+<script>
+// 筛选功能
+document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+  checkbox.addEventListener('change', applyFilters);
+});
+
+document.getElementById('minPrice').addEventListener('change', applyFilters);
+document.getElementById('maxPrice').addEventListener('change', applyFilters);
+
+document.getElementById('sortSelect').addEventListener('change', function() {
+  const url = new URL(window.location.href);
+  url.searchParams.set('sort', this.value);
+  window.location.href = url.toString();
+});
+
+function applyFilters() {
+  const selectedCategories = Array.from(document.querySelectorAll('[type="checkbox"]:checked'))
+    .map(checkbox => checkbox.value);
+  
+  const minPrice = document.getElementById('minPrice').value;
+  const maxPrice = document.getElementById('maxPrice').value;
+
+  const url = new URL(window.location.href);
+  url.searchParams.set('categories', selectedCategories.join(','));
+  if(minPrice) url.searchParams.set('minPrice', minPrice);
+  if(maxPrice) url.searchParams.set('maxPrice', maxPrice);
+  
+  window.location.href = url.toString();
+}
+
+
+
+  // 购物车管理器
+  const cartManager = {
+    key: 'global_cart',
+    
+    getCart() {
+      return JSON.parse(localStorage.getItem(this.key)) || [];
+    },
+
+    saveCart(cart) {
+      localStorage.setItem(this.key, JSON.stringify(cart));
+      this.updateBadge();
+    },
+
+    addItem(newItem) {
+      const cart = this.getCart();
+      const existing = cart.find(item => 
+        item.id === newItem.id && 
+        item.spec === newItem.spec
+      );
+
+      if(existing) {
+        existing.quantity += newItem.quantity;
+      } else {
+        newItem.uid = Date.now().toString(36);
+        cart.push(newItem);
+      }
+
+      this.saveCart(cart);
+      this.showAddSuccess();
+    },
+
+    updateBadge() {
+      const total = this.getCart().reduce((sum, item) => sum + item.quantity, 0);
+      document.querySelectorAll('.cart-badge').forEach(badge => {
+        badge.textContent = total;
+        badge.classList.toggle('hidden', total === 0);
+      });
+    },
+
+    showAddSuccess() {
+      const toast = document.createElement('div');
+      toast.className = 'fixed bottom-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg animate-slideIn';
+      toast.innerHTML = `
+        <span>✅ 已加入购物车</span>
+        <a href="/cart" class="ml-4 underline">去结算</a>
+      `;
+      document.body.appendChild(toast);
+      
+      setTimeout(() => {
+        toast.classList.replace('animate-slideIn', 'animate-slideOut');
+        setTimeout(() => toast.remove(), 500);
+      }, 3000);
+    }
+  };
+
+  // 列表页加入购物车逻辑
+  document.querySelectorAll('.add-to-cart-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+      const productInfo = {
+        id: this.dataset.productId,
+        title: this.dataset.title,
+        spec: '默认规格', // 列表页使用默认规格
+        price: parseFloat(this.dataset.price),
+        image: this.dataset.image,
+        quantity: 1 // 列表页默认数量为1
+      };
+      
+      cartManager.addItem(productInfo);
+    });
+  });
+
+  // 初始化购物车徽章
+  document.addEventListener('DOMContentLoaded', () => {
+    cartManager.updateBadge();
+  });
+</script>
+
+<style>
+/* 自定义样式 */
+.aspect-square {
+  aspect-ratio: 1 / 1;
+}
+
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* 加载动画 */
+@keyframes skeleton-loading {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+.skeleton {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: skeleton-loading 1.5s infinite;
+}
+
+ /* 新增列表页专属样式 */
+ .product-card {
+    min-height: 320px;
+    position: relative;
+  }
+  
+  
+  .product-card:hover .add-to-cart-btn {
+    opacity: 1;
+  }
+
+</style>
+{{ end }}
