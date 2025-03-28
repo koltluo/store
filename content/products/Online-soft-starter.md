@@ -74,7 +74,6 @@ specifications:
       - name: "630KW"
         price: 6200
         originalPrice: 12300
-
 specs:
   发货时间: "24小时内"
   额定电压: "AC380V ±15%"
@@ -82,14 +81,12 @@ specs:
   版本系列: "GE300"
   冷却方式: "强制风冷"
   商品品牌: "森阔"
-
 images:
   - "{{ "images/products/online-soft-starte-1.jpg" | relURL }}"
   - "{{ "images/products/online-soft-starte-2.jpg" | relURL }}"
   - "{{ "images/products/online-soft-starte-3.jpg" | relURL }}"
   - "{{ "images/products/online-soft-starte-4.jpg" | relURL }}"
   - "{{ "images/products/online-soft-starte-5.jpg" | relURL }}"
-
 ---
 我们的[**在线式软启动器**](/products/online-soft-starter/)是一款集先进技术与可靠性能于一身的电机启动控制设备。专为现代工业生产及各类电机驱动场景设计，它通过平滑地控制电机的启动电流，有效降低启动时对电网和机械设备的冲击，为电机提供安全、稳定且高效的启动解决方案。无论是工业制造、建筑工程，还是商业设施中的电机应用，这款软启动器都能发挥关键作用，提升设备运行稳定性，延长设备使用寿命。
 
