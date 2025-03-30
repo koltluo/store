@@ -84,10 +84,10 @@ specs:
   外形尺寸: "300×420×210mm"
 
 images:
-  - "/images/products/1.jpg"
-  - "/images/products/6.jpg"
-  - "/images/products/7.jpg"
-  - "/images/products/8.jpg"
+  - "/images/products/bypass-soft-starter-1.jpg"
+  - "/images/products/bypass-soft-starter-2.jpg"
+  - "/images/products/bypass-soft-starter-3.jpg"
+  - "/images/products/bypass-soft-starter-4.jpg"
 
 ---
 

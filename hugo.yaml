@@ -60,29 +60,29 @@ menu:
     - name: "产品中心"
       pageRef: "/products"
       weight: 3        
-    - name: "变频器选型系统"
+    - name: "变频器选型计算器"
       pageRef: "/inverter-selection-system/"
       weight: 4        
-    - name: "软启动选型系统"
+    - name: "软启动选型计算器"
       pageRef: "/soft-starter-selection-system/"
       weight: 5        
         
         
 params:
   navbar:
-    displayTitle: true
+    displayTitle: false
     displayLogo: true
     logo:
       path: images/logo.svg
       dark: images/logo-dark.svg
       link: /
-      width: 40
-      height: 40        
+      width: 155
+      height: 62       
       
   theme:
     # light | dark | system
-    default: system
-    displayToggle: true      
+    default: light
+    displayToggle: false     
       
   article:
     displayPagination: true      

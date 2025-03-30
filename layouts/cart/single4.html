@@ -1,24 +1,23 @@
 {{ define "main" }}
 <div class="container max-w-7xl mx-auto px-4 py-8">
-  <!-- 标题 -->
-  <h1 class="text-3xl font-extrabold hx-text-gray-800 dark:hx-text-slate-100 mb-8">
+  <h1 class="text-3xl font-extrabold text-gray-800 mb-8">
     我的购物车
   </h1>
   
   <!-- 购物车表格 -->
-  <div class="overflow-x-auto hx-bg-white shadow-md rounded-lg dark:hx-bg-black">
-    <table class="w-full text-left border-collapse border hx-border-gray-200 dark:hx-border-gray-700">
-      <thead class="hidden md:table-header-group bg-gray-50 dark:bg-gray-900">
+  <div class="overflow-x-auto bg-white shadow-md rounded-lg">
+    <table class="w-full text-left border-collapse">
+      <thead class="hidden md:table-header-group bg-gray-50">
         <tr>
-          <th class="py-4 px-6 font-semibold hx-text-gray-600 dark:hx-text-gray-400 md:w-1/5">商品图片</th>
-          <th class="py-4 px-6 font-semibold hx-text-gray-600 dark:hx-text-gray-400">商品信息</th>
-          <th class="py-4 px-6 font-semibold hx-text-gray-600 dark:hx-text-gray-400 text-center">单价</th>
-          <th class="py-4 px-6 font-semibold hx-text-gray-600 dark:hx-text-gray-400 text-center">数量</th>
-          <th class="py-4 px-6 font-semibold hx-text-gray-600 dark:hx-text-gray-400 text-center">小计</th>
-          <th class="py-4 px-6 font-semibold hx-text-gray-600 dark:hx-text-gray-400 text-center">操作</th>
+          <th class="py-4 px-6 font-semibold text-gray-600 md:w-1/5">商品图片</th>
+          <th class="py-4 px-6 font-semibold text-gray-600">商品信息</th>
+          <th class="py-4 px-6 font-semibold text-gray-600 text-center">单价</th>
+          <th class="py-4 px-6 font-semibold text-gray-600 text-center">数量</th>
+          <th class="py-4 px-6 font-semibold text-gray-600 text-center">小计</th>
+          <th class="py-4 px-6 font-semibold text-gray-600 text-center">操作</th>
         </tr>
       </thead>
-      <tbody id="cart-items" class="divide-y hx-divide-gray-200 dark:hx-divide-gray-800">
+      <tbody id="cart-items" class="divide-y divide-gray-200">
         <!-- 动态内容 -->
       </tbody>
     </table>
@@ -27,7 +26,7 @@
   <!-- 合计与结算 -->
   <div class="flex flex-wrap items-center justify-between mt-8 gap-4">
     <div class="text-right w-full md:w-auto">
-      <span class="text-xl font-bold hx-text-gray-800 dark:hx-text-slate-100 ">商品合计：</span>
+      <span class="text-xl font-bold text-gray-800">商品合计：</span>
       <span id="total-amount" class="text-2xl text-red-500">¥0.00</span>
     </div>
     <button 
@@ -41,33 +40,33 @@
 
 <!-- 结算模态框 -->
 <div id="checkout-modal" class="fixed inset-0 bg-black/50 flex items-center justify-center hidden">
-  <div class="hx-bg-white dark:hx-bg-gray-900 rounded-lg p-6 w-full max-w-md shadow-lg">
-    <h2 class="text-2xl font-bold hx-text-gray-800 dark:hx-text-slate-100 mb-6">填写收货信息</h2>
+  <div class="bg-white rounded-lg p-6 w-full max-w-md shadow-lg">
+    <h2 class="text-2xl font-bold text-gray-800 mb-6">填写收货信息</h2>
     <form id="checkout-form">
       <div class="space-y-4">
         <div>
-          <label class="block mb-2 hx-text-gray-700 dark:hx-text-gray-400 font-medium">收货人姓名</label>
+          <label class="block mb-2 text-gray-700 font-medium">收货人姓名</label>
           <input type="text" name="name" required 
-                 class="w-full px-4 py-2 border dark:hx-border-gray-600 rounded-lg shadow-sm focus:outline-none focus:ring focus:ring-red-300 dark:bg-gray-800 dark:text-gray-300">
+                 class="w-full px-4 py-2 border rounded-lg shadow-sm focus:outline-none focus:ring focus:ring-red-300">
         </div>
         <div>
-          <label class="block mb-2 hx-text-gray-700 dark:hx-text-gray-400 font-medium">联系电话</label>
+          <label class="block mb-2 text-gray-700 font-medium">联系电话</label>
           <input type="tel" name="phone" required
-                 class="w-full px-4 py-2 border dark:hx-border-gray-600 rounded-lg shadow-sm focus:outline-none focus:ring focus:ring-red-300 dark:bg-gray-800 dark:text-gray-300">
+                 class="w-full px-4 py-2 border rounded-lg shadow-sm focus:outline-none focus:ring focus:ring-red-300">
         </div>
         <div>
-          <label class="block mb-2 hx-text-gray-700 dark:hx-text-gray-400 font-medium">详细地址</label>
+          <label class="block mb-2 text-gray-700 font-medium">详细地址</label>
           <textarea name="address" rows="3" required
-                    class="w-full px-4 py-2 border dark:border-gray-600 rounded-lg shadow-sm focus:outline-none focus:ring focus:ring-red-300 dark:bg-gray-800 dark:text-gray-300"></textarea>
+                    class="w-full px-4 py-2 border rounded-lg shadow-sm focus:outline-none focus:ring focus:ring-red-300"></textarea>
         </div>
       </div>
       <div class="mt-6 flex justify-end gap-4">
         <button type="button" onclick="closeCheckoutModal()" 
-                class="px-6 py-2 hx-bg-gray-200 dark:hx-bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-900 dark:text-gray-300 rounded-lg">
+                class="px-6 py-2 bg-gray-200 hover:bg-gray-300 text-gray-900 rounded-lg">
           取消
         </button>
         <button type="submit" 
-                class="px-6 py-2 hx-bg-red-500 hover:hx-bg-red-600 hx-text-white rounded-lg">
+                class="px-6 py-2 bg-red-500 hover:bg-red-600 text-white rounded-lg">
           提交订单
         </button>
       </div>
@@ -250,8 +249,7 @@
       renderCart();
     });
     </script>
-
-
+    
 <style>
 /* 小设备下隐藏商品图片列 */
 @media (max-width: 768px) {
@@ -281,7 +279,7 @@
     width: 50%;
     text-align: right;
     margin-right: 1rem;
-    color: #6b7280; /* 替换颜色为灰色 */
+    color: #4b5563;
   }
 
   /* 操作按钮 */

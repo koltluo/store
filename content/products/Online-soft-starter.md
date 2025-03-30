@@ -84,9 +84,9 @@ specs:
   商品品牌: "森阔"
 
 images:
-  - "/images/products/online-soft-starte-1.jpg"
-  - "/images/products/online-soft-starte-2.jpg"
   - "/images/products/online-soft-starte-3.jpg"
+  - "/images/products/online-soft-starte-2.jpg"
+  - "/images/products/online-soft-starte-1.jpg"
   - "/images/products/online-soft-starte-4.jpg"
   - "/images/products/online-soft-starte-5.jpg"
 

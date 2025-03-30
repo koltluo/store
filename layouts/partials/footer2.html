@@ -16,19 +16,16 @@
 {{- end -}}
 
 <footer class="hextra-footer hx-bg-gray-100 hx-pb-[env(safe-area-inset-bottom)] dark:hx-bg-neutral-900 print:hx-bg-transparent">
-<!-- 顶部功能切换 -->
-<div class="container mx-auto px-4 py-4">
-  <div class="flex flex-wrap sm:flex-nowrap items-center justify-between gap-4">
-    <!-- 语言切换和主题切换 -->
-    <div class="flex gap-2">
+  {{- if $footerSwitchesVisible -}}
+    <div class="mx-auto flex gap-2 py-2 px-4 {{ $footerWidth }}">
       {{- partial "language-switch.html" (dict "context" .) -}}
-      {{- with $displayThemeToggle }}
-        {{ partial "theme-toggle.html" }}
-      {{ end -}}
+      {{- with $displayThemeToggle }}{{ partial "theme-toggle.html" }}{{ end -}}
     </div>
-  </div>
-</div>
-<hr class="border-gray-300 dark:border-gray-700" />
+    {{- if or hugo.IsMultilingual $displayThemeToggle -}}
+      <hr class="dark:border-neutral-800" />
+    {{- end -}}
+  {{- end -}}
+
   <div class="{{ $footerWidth }} mx-auto pl-[max(env(safe-area-inset-left),1.5rem)] pr-[max(env(safe-area-inset-right),1.5rem)] text-gray-600 dark:text-gray-400">
     {{- partial "custom/footer.html" (dict "context" . "switchesVisible" $footerSwitchesVisible "copyrightVisible" $copyrightSectionVisible) -}}
   </div>
@@ -51,25 +48,25 @@
       <!-- 关于我们 -->
       <div>
         <h4 class="mb-4 text-lg font-semibold dark:text-slate-100">关于我们</h4>
-        <p class="space-y-2 hx-text-gray-600 dark:hx-text-gray-400">{{ .Site.Params.footer.company.description }}</p>
+        <p class="space-y-2 text-gray-600 dark:text-gray-400">{{ .Site.Params.footer.company.description }}</p>
       </div>
 
       <!-- 快速链接 -->
       <div>
         <h4 class="mb-4 text-lg font-semibold dark:text-slate-100">快速链接</h4>
         <ul class="space-y-2">
-          <li><a href="/products" class="transition duration-300 hover:hx-text-blue-400 dark:hover:hx-text-blue-300 hx-text-gray-600 dark:hx-text-gray-400">产品展示</a></li>
-          <li><a href="/docs" class="transition duration-300 hover:hx-text-blue-400 dark:hover:hx-text-blue-300 hx-text-gray-600 dark:hx-text-gray-400">技术文档</a></li>
-          <li><a href="/blog" class="transition duration-300 hover:hx-text-blue-400 dark:hover:hx-text-blue-300 hx-text-gray-600 dark:hx-text-gray-400">行业资讯</a></li>
-          <li><a href="/inverter-selection-system" class="transition duration-300 hover:hx-text-blue-400 dark:hover:hx-text-blue-300 text-gray-600 dark:hx-text-gray-400">变频器选型系统</a></li>
-          <li><a href="/soft-starter-selection-system" class="transition duration-300 hover:hx-text-blue-400 dark:hover:hx-text-blue-300 hx-text-gray-600 dark:hx-text-gray-400">软启动选型系统</a></li>
+          <li><a href="/products" class="transition duration-300 hover:text-blue-400 dark:hover:text-blue-300 text-gray-600 dark:text-gray-400">产品展示</a></li>
+          <li><a href="/docs" class="transition duration-300 hover:text-blue-400 dark:hover:text-blue-300 text-gray-600 dark:text-gray-400">技术文档</a></li>
+          <li><a href="/blog" class="transition duration-300 hover:text-blue-400 dark:hover:text-blue-300 text-gray-600 dark:text-gray-400">行业资讯</a></li>
+          <li><a href="/inverter-selection-system" class="transition duration-300 hover:text-blue-400 dark:hover:text-blue-300 text-gray-600 dark:text-gray-400">变频器选型系统</a></li>
+          <li><a href="/soft-starter-selection-system" class="transition duration-300 hover:text-blue-400 dark:hover:text-blue-300 text-gray-600 dark:text-gray-400">软启动选型系统</a></li>
         </ul>
       </div>
 
       <!-- 联系信息 -->
       <div>
         <h3 class="mb-4 text-lg font-semibold dark:text-slate-100">联系我们</h3>
-        <ul class="space-y-2 hx-text-gray-600 dark:hx-text-gray-400">
+        <ul class="space-y-2 text-gray-600 dark:text-gray-400">
           <li>地址: {{ .Site.Params.footer.contact.address }}</li>
           <li>电话: {{ .Site.Params.footer.contact.phone }}</li>
           <li>邮箱: {{ .Site.Params.footer.contact.email }}</li>
@@ -85,17 +82,17 @@
           <!-- 公众号二维码 -->
           <div class="text-center">
             <img src="{{ "images/qygzh.jpg" | relURL }}" alt="公众号二维码" class="mx-auto h-24 w-24 rounded shadow-md">
-            <p class="mt-1 text-sm hx-text-gray-600 dark:hx-text-gray-400">公众号</p>
+            <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">公众号</p>
           </div>
           <!-- 抖音二维码 -->
           <div class="text-center">
             <img src="{{ "images/douyin.jpg" | relURL }}" alt="抖音二维码" class="mx-auto h-24 w-24 rounded shadow-md">
-            <p class="mt-1 text-sm hx-text-gray-600 dark:hx-text-gray-400">抖音</p>
+            <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">抖音</p>
           </div>
           <!-- 微信二维码 -->
           <div class="text-center">
             <img src="{{ "images/sk-wechat.jpg" | relURL }}" alt="微信二维码" class="mx-auto h-24 w-24 rounded shadow-md">
-            <p class="mt-1 text-sm hx-text-gray-600 dark:hx-text-gray-400">微信</p>
+            <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">微信</p>
           </div>
         </div>
       </div>
