@@ -45,9 +45,9 @@
         <div class="space-y-2">
           <!-- 价格信息 -->
           <div class="flex items-center gap-4">
-            <span class="text-3xl font-bold text-red-600" id="price">¥{{ .Params.price }}</span>
-            <del class="text-gray-500 text-xl" id="originalPrice">¥{{ .Params.originalPrice }}</del>
-            {{ if and (.Params.originalPrice) (gt .Params.originalPrice .Params.price) }}
+            <span class="text-3xl font-bold text-red-600" id="price">¥{{ .Params.price | float }}</span>
+            <del class="text-gray-500 text-xl" id="originalPrice">¥{{ .Params.originalPrice | float }}</del>
+            {{ if and (.Params.originalPrice) (gt (.Params.originalPrice | float) (.Params.price | float)) }}
             <div class="flex items-center gap-2">
               <span class="text-green-600 bg-green-100 px-2 py-1 rounded" id="savings">
                 立省¥<span id="savingsValue">{{ sub (float .Params.originalPrice) (float .Params.price) | lang.FormatNumber 2 }}</span>
@@ -340,7 +340,7 @@ const endTime = new Date().getTime() + 2 * 60 * 60 * 1000;
     const timeLeft = endTime - now;
     if (timeLeft <= 0) {
       // 倒计时结束，恢复原价
-      document.getElementById('price').textContent = `¥{{ .Params.originalPrice }}`;
+      document.getElementById('price').textContent = `¥{{ .Params.originalPrice | float }}`;
       document.getElementById('originalPrice').style.display = 'none';
       document.getElementById('savings').style.display = 'none';
       document.getElementById('countdown').innerHTML = '优惠已结束';
