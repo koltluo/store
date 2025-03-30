@@ -42,25 +42,21 @@
         {{- end -}}
 
         <!-- 新增广告位 -->
-       
-<div id="ad-placement" class="hx-my-4">
- 
-  <div class="hx-text-gray-500 dark:hx-text-gray-400 contrast-more:hx-text-gray-800 contrast-more:dark:hx-text-gray-50">
-
-    <p class="hx-mb-2 hx-font-medium"><strong>联系我们</strong></p>
-    <ul class="hx-list-disc hx-pl-5">
-      <li><b>邮箱: </b><a href="mailto:sales@lyskjd.com" class="hx-text-blue-600 hover:hx-underline dark:hx-text-blue-400">sales@lyskjd.com</a></li>
-      <li><b>电话:</b> +86 150-6499-9739</li>
-      <li><b>地址:</b> 山东省临沂市兰山区通达路与清河北路交汇东北角</li>
-    </ul>
-    <p class="hx-mt-2">
-      <a href="/products" class="hx-text-blue-600 hover:hx-underline dark:hx-text-blue-400">
-        <strong>产品中心</strong>
-      </a>
-    </p>
-
-  </div>
-</div>
+        <div id="ad-placement" class="hx-my-4">
+          <div class="hx-text-gray-500 dark:hx-text-gray-400 contrast-more:hx-text-gray-800 contrast-more:dark:hx-text-gray-50">
+            <p class="hx-mb-2 hx-font-medium"><strong>联系我们</strong></p>
+            <ul class="hx-list-disc hx-pl-5">
+              <li><b>邮箱: </b><a href="mailto:sales@lyskjd.com" class="hx-text-blue-600 hover:hx-underline dark:hx-text-blue-400">sales@lyskjd.com</a></li>
+              <li><b>电话:</b> +86 150-6499-9739</li>
+              <li><b>地址:</b> 山东省临沂市兰山区通达路与清河北路交汇东北角</li>
+            </ul>
+            <p class="hx-mt-2">
+              <a href="/products" class="hx-text-blue-600 hover:hx-underline dark:hx-text-blue-400">
+                <strong>产品中心</strong>
+              </a>
+            </p>
+          </div>
+        </div>
 
         {{/* Scroll To Top */}}
         <button aria-hidden="true" id="backToTop" onClick="scrollUp();" class="hx-transition-all hx-duration-75 hx-opacity-0 hx-text-xs hx-font-medium hx-text-gray-500 hover:hx-text-gray-900 dark:hx-text-gray-400 dark:hover:hx-text-gray-100 contrast-more:hx-text-gray-800 contrast-more:dark:hx-text-gray-50">
@@ -80,24 +76,21 @@
 {{- define "toc-subheading" -}}
   {{- $headings := .headings -}}
   {{- $level := .level -}}
-  {{- if ge $level 6 -}}
-    {{ return }}
-  {{- end -}}
+  {{- if lt $level 6 -}}  <!-- 关键修改：如果 level 小于 6，才渲染内容 -->
+    {{- $padding := (mul $level 4) -}}
+    {{- $class := cond (eq $level 0) "hx-font-semibold" (printf "ltr:hx-pl-%d rtl:hx-pr-%d" $padding $padding) -}}
 
-  {{- $padding := (mul $level 4) -}}
-  {{- $class := cond (eq $level 0) "hx-font-semibold" (printf "ltr:hx-pl-%d rtl:hx-pr-%d" $padding $padding) -}}
-
-  {{- range $headings }}
-    {{- if .Title }}
-      <li class="hx-my-2 hx-scroll-my-6 hx-scroll-py-6">
-        <a class="{{ $class }} hx-inline-block hx-text-gray-500 hover:hx-text-gray-900 dark:hx-text-gray-400 dark:hover:hx-text-gray-300 contrast-more:hx-text-gray-900 contrast-more:hx-underline contrast-more:dark:hx-text-gray-50 hx-w-full hx-break-words" href="#{{ anchorize .ID }}">
-          {{- .Title | safeHTML | plainify | htmlUnescape }}
-        </a>
-      </li>
+    {{- range $headings }}
+      {{- if .Title }}
+        <li class="hx-my-2 hx-scroll-my-6 hx-scroll-py-6">
+          <a class="{{ $class }} hx-inline-block hx-text-gray-500 hover:hx-text-gray-900 dark:hx-text-gray-400 dark:hover:hx-text-gray-300 contrast-more:hx-text-gray-900 contrast-more:hx-underline contrast-more:dark:hx-text-gray-50 hx-w-full hx-break-words" href="#{{ anchorize .ID }}">
+            {{- .Title | safeHTML | plainify | htmlUnescape }}
+          </a>
+        </li>
+      {{- end -}}
+      {{- with .Headings -}}
+        {{ template "toc-subheading" (dict "headings" . "level" (add $level 1)) }}
+      {{- end -}}
     {{- end -}}
-    {{- with .Headings -}}
-      {{ template "toc-subheading" (dict "headings" . "level" (add $level 1)) }}
-    {{- end -}}
-
   {{- end -}}
 {{- end -}}
