@@ -15,7 +15,7 @@
         </svg>
       </button>
     </div>
-
+  
     <!-- 倒计时提示 -->
     <div id="countdown" class="text-center text-sm text-gray-600 mb-4">
       请在 <span id="countdown-time" class="text-red-500 font-bold animate-pulse">120</span> 秒内完成支付，超时将自动取消订单！
@@ -186,7 +186,7 @@
 </div>
 
 <script>
-  // 全局状态管理
+  // 全局状态管理（修改：移除了后端相关变量）
   let paymentInProgress = false;
   let countdownInterval = null;
   const CART_KEY = 'global_cart';
@@ -216,9 +216,16 @@
       const isChecked = invoiceCheckbox.checked;
       invoiceFields.classList.toggle('hidden', !isChecked);
     
-      invoiceFields.querySelectorAll('input').forEach(input => {
-        input.required = isChecked;
-      });
+      if (isChecked) {
+        invoiceFields.querySelectorAll('input').forEach(input => {
+          input.required = true;
+        });
+      } else {
+        invoiceFields.querySelectorAll('input').forEach(input => {
+          input.required = false;
+          input.setCustomValidity('');
+        });
+      }
     });
   }
 
@@ -280,110 +287,125 @@
     document.getElementById('payment-modal').addEventListener('click', e => {
       if (e.target === document.getElementById('payment-modal')) closePaymentModal();
     });
-    
-    const closeButton = document.querySelector('#payment-modal button[onclick="closePaymentModal()"]');
-    if (closeButton) {
-      closeButton.addEventListener('click', closePaymentModal);
-    }
   }
 
+  // 修改：移除了后端支付逻辑，改为纯前端处理
   async function handlePayment() {
-    if (paymentInProgress) return;
-    paymentInProgress = true;
+  if (paymentInProgress) return;
+  paymentInProgress = true;
 
-    try {
-      const invoiceData = validateInvoice();
-      console.log("发票信息校验通过:", invoiceData);
+  try {
+    const invoiceData = validateInvoice();
+    console.log("发票信息校验通过:", invoiceData);
 
-      saveOrderData(invoiceData);
-      console.log("订单数据保存成功:", localStorage.getItem(ORDER_SUCCESS_KEY));
-      showPaymentModal();
-    } catch (error) {
-      console.error("支付失败:", error.message);
-      alert(`支付失败: ${error.message}`);
-    } finally {
-      paymentInProgress = false;
-    }
+    saveOrderData(invoiceData); // 保存订单数据
+    console.log("订单数据保存成功:", localStorage.getItem(ORDER_SUCCESS_KEY));
+
+    // 显示支付弹窗和倒计时
+    showPaymentModal();
+    startCountdown();
+  } catch (error) {
+    console.error("支付失败:", error.message);
+    alert(`支付失败: ${error.message}`);
+  } finally {
+    paymentInProgress = false;
   }
+}
 
+  // 新增：数据持久化增强
   function saveOrderData(invoiceData) {
-    const checkoutData = JSON.parse(localStorage.getItem(CHECKOUT_KEY));
-    console.log("CHECKOUT_KEY 数据:", checkoutData);
-    
-    if (!checkoutData) {
-      throw new Error("订单数据丢失。请返回购物车重新下单！");
-    }
-
-    const orderNumber = `ORDER_${Date.now()}_${Math.floor(Math.random() * 9000) + 1000}`;
-    const orderData = {
-      orderNumber,
-      items: checkoutData.cartItems,
-      shippingInfo: checkoutData.shippingInfo,
-      total: parseFloat(document.getElementById('total-amount').textContent.slice(1)),
-      timestamp: new Date().toISOString(),
-      invoice: invoiceData
-    };
-
-    console.log("生成的订单数据:", orderData);
-    localStorage.setItem(ORDER_SUCCESS_KEY, JSON.stringify(orderData));
-    console.log("订单数据已保存到 localStorage:", localStorage.getItem(ORDER_SUCCESS_KEY));
+  const checkoutData = JSON.parse(localStorage.getItem(CHECKOUT_KEY));
+  console.log("CHECKOUT_KEY 数据:", checkoutData);
+  
+  if (!checkoutData) {
+    throw new Error("订单数据丢失。请返回购物车重新下单！");
   }
 
+  const orderNumber = `ORDER_${Date.now()}_${Math.floor(Math.random() * 9000) + 1000}`;
+  const orderData = {
+    orderNumber,
+    items: checkoutData.cartItems,
+    shippingInfo: checkoutData.shippingInfo,
+    total: parseFloat(document.getElementById('total-amount').textContent.slice(1)),
+    timestamp: new Date().toISOString(),
+    invoice: invoiceData
+  };
+
+  console.log("生成的订单数据:", orderData);
+  localStorage.setItem(ORDER_SUCCESS_KEY, JSON.stringify(orderData));
+  console.log("订单数据已保存到 localStorage:", localStorage.getItem(ORDER_SUCCESS_KEY));
+}
+
+  // 修改：发票验证方法，增强的发票验证逻辑
   function validateInvoice() {
-    const needInvoice = document.getElementById('need-invoice').checked;
-    if (!needInvoice) return null;
+  const needInvoice = document.getElementById('need-invoice').checked;
+  if (!needInvoice) return null;
 
-    const titleInput = document.getElementById('invoice-title');
-    const taxIdInput = document.getElementById('invoice-tax-id');
-    let isValid = true;
+  const titleInput = document.getElementById('invoice-title');
+  const taxIdInput = document.getElementById('invoice-tax-id');
+  let isValid = true;
 
-    titleInput.classList.remove('input-error');
-    taxIdInput.classList.remove('input-error');
+  // 清除旧错误状态
+  titleInput.classList.remove('input-error');
+  taxIdInput.classList.remove('input-error');
 
-    const title = titleInput.value.trim();
-    const taxId = taxIdInput.value.trim();
+  const title = titleInput.value.trim();
+  const taxId = taxIdInput.value.trim();
 
-    if (!title) {
-      titleInput.classList.add('input-error');
-      isValid = false;
-    }
-
-    if (taxId && taxId.length !== 18) {
-      taxIdInput.classList.add('input-error');
-      isValid = false;
-    }
-
-    if (!isValid) {
-      throw new Error('请填写完整的发票信息');
-    }
-
-    return { title, taxId };
+  if (!title) {
+    titleInput.classList.add('input-error');
+    isValid = false;
   }
+
+  if (taxId && taxId.length !== 18) {
+    taxIdInput.classList.add('input-error');
+    isValid = false;
+  }
+
+  if (!isValid) {
+    throw new Error('请填写完整的发票信息');
+  }
+
+  return { title, taxId };
+}
+
+  // 修改：增强倒计时逻辑
 
   function startCountdown() {
-    let seconds = 120;
-    const countdownElement = document.getElementById('countdown-time');
-
-    // 清除先前的倒计时
-    clearInterval(countdownInterval);
+  let seconds = 120;
+  const countdownElement = document.getElementById('countdown-time');
+  const modalCloseBtn = document.querySelector('#payment-modal button[onclick="closePaymentModal()"]');
+  
+  // 添加关闭按钮禁用状态
+  modalCloseBtn.disabled = false;
+  
+  countdownInterval = setInterval(() => {
+    countdownElement.textContent = seconds--;
     
-    countdownInterval = setInterval(() => {
-      countdownElement.textContent = seconds--;
-      
-      if (seconds < 0) {
-        clearInterval(countdownInterval);
-        localStorage.removeItem(CART_KEY);
-        localStorage.removeItem(CHECKOUT_KEY);
-        const orderData = localStorage.getItem(ORDER_SUCCESS_KEY);
-        if (orderData) {
-          window.location.href = '/order-success/';
-        } else {
-          alert("订单创建失败，请联系客服");
-          closePaymentModal();
-        }
-      }
-    }, 1000);
+    // 最后10秒添加闪烁效果
+    if (seconds <= 10) {
+      countdownElement.style.animation = 'pulse 0.8s infinite';
+    }
+    
+    if (seconds < 0) {
+  clearInterval(countdownInterval);
+  
+  // 只清除购物车和 CHECKOUT_KEY 数据
+  localStorage.removeItem(CART_KEY);
+  localStorage.removeItem(CHECKOUT_KEY);
+
+  // 检查订单数据是否存在
+  const orderData = localStorage.getItem(ORDER_SUCCESS_KEY);
+  if (orderData) {
+    console.log("订单数据存在，跳转到成功页面:", orderData);
+    window.location.href = '/order-success/';
+  } else {
+    alert("订单创建失败，请联系客服");
+    closePaymentModal();
   }
+}
+  }, 1000);
+}
 
   function handleInitError(error) {
     console.error('初始化错误:', error);
@@ -396,44 +418,48 @@
     const modal = document.getElementById('payment-modal');
     modal.classList.remove('hidden');
     document.body.classList.add('overflow-hidden');
-    startCountdown(); // 每次显示支付弹窗时启动倒计时
   }
+  // 增强支付弹窗关闭保护
 
   function closePaymentModal() {
-    // 弹出确认框，询问用户是否关闭弹窗
+  if (seconds > 0) {
     const confirmClose = confirm('支付尚未完成，确定要取消支付吗？');
-    if (!confirmClose) return; // 如果用户选择取消，直接返回
-
-    clearInterval(countdownInterval); // 清除倒计时
-    const modal = document.getElementById('payment-modal');
-    modal.classList.add('hidden');
-    document.body.classList.remove('overflow-hidden');
-    document.querySelectorAll('[id$="-qr"]').forEach(el => el.classList.add('hidden'));
-
-    // 重置倒计时显示
-    document.getElementById('countdown-time').textContent = '120';
+    if (!confirmClose) return;
   }
+  
+  clearInterval(countdownInterval);
+  const modal = document.getElementById('payment-modal');
+  modal.classList.add('hidden');
+  document.body.classList.remove('overflow-hidden');
+  document.querySelectorAll('[id$="-qr"]').forEach(el => el.classList.add('hidden'));
+  
+  // 重置倒计时显示
+  document.getElementById('countdown-time').textContent = '120';
+  document.getElementById('countdown-time').style.animation = '';
+}
 
   function showQRCode(type) {
     document.querySelectorAll('[id$="-qr"]').forEach(el => el.classList.add('hidden'));
     document.getElementById(`${type}-qr`).classList.remove('hidden');
   }
 
-  // 安全增强
-  function escapeHTML(str) {
-    const div = document.createElement('div');
-    div.textContent = str;
-    return div.innerHTML
-      .replace(/"/g, '&quot;')
-      .replace(/'/g, '&#39;')
-      .replace(/</g, '&lt;')
-      .replace(/>/g, '&gt;');
-  }
+// 安全增强
 
-  // 防止XSS攻击的金额显示
-  function safeCurrency(amount) {
-    return `¥${Number(amount).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`;
-  }
+  function escapeHTML(str) {
+  const div = document.createElement('div');
+  div.textContent = str;
+  return div.innerHTML
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;');
+}
+
+// 防止XSS攻击的金额显示
+function safeCurrency(amount) {
+  return `¥${Number(amount).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`;
+}
+
 </script>
 
 {{ end }}

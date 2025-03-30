@@ -41,33 +41,33 @@
 
 <!-- 结算模态框 -->
 <div id="checkout-modal" class="fixed inset-0 bg-black/50 flex items-center justify-center hidden">
-  <div class="hx-bg-white dark:hx-bg-gray-900 rounded-lg p-6 w-full max-w-md shadow-lg">
-    <h2 class="text-2xl font-bold hx-text-gray-800 dark:hx-text-slate-100 mb-6">填写收货信息</h2>
+  <div class="bg-white dark:bg-gray-900 rounded-lg p-6 w-full max-w-md shadow-lg">
+    <h2 class="text-2xl font-bold text-gray-800 dark:text-slate-100 mb-6">填写收货信息</h2>
     <form id="checkout-form">
       <div class="space-y-4">
         <div>
-          <label class="block mb-2 hx-text-gray-700 dark:hx-text-gray-400 font-medium">收货人姓名</label>
+          <label class="block mb-2 text-gray-700 dark:text-gray-400 font-medium">收货人姓名</label>
           <input type="text" name="name" required 
-                 class="w-full px-4 py-2 border dark:hx-border-gray-600 rounded-lg shadow-sm focus:outline-none focus:ring focus:ring-red-300 dark:bg-gray-800 dark:text-gray-300">
+                 class="w-full px-4 py-2 border dark:border-gray-600 rounded-lg shadow-sm focus:outline-none focus:ring focus:ring-red-300 dark:bg-gray-800 dark:text-gray-300">
         </div>
         <div>
-          <label class="block mb-2 hx-text-gray-700 dark:hx-text-gray-400 font-medium">联系电话</label>
+          <label class="block mb-2 text-gray-700 dark:text-gray-400 font-medium">联系电话</label>
           <input type="tel" name="phone" required
                  class="w-full px-4 py-2 border dark:hx-border-gray-600 rounded-lg shadow-sm focus:outline-none focus:ring focus:ring-red-300 dark:bg-gray-800 dark:text-gray-300">
         </div>
         <div>
-          <label class="block mb-2 hx-text-gray-700 dark:hx-text-gray-400 font-medium">详细地址</label>
+          <label class="block mb-2 text-gray-700 dark:text-gray-400 font-medium">详细地址</label>
           <textarea name="address" rows="3" required
                     class="w-full px-4 py-2 border dark:border-gray-600 rounded-lg shadow-sm focus:outline-none focus:ring focus:ring-red-300 dark:bg-gray-800 dark:text-gray-300"></textarea>
         </div>
       </div>
       <div class="mt-6 flex justify-end gap-4">
         <button type="button" onclick="closeCheckoutModal()" 
-                class="px-6 py-2 hx-bg-gray-200 dark:hx-bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-900 dark:text-gray-300 rounded-lg">
+                class="px-6 py-2 bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-900 dark:text-gray-300 rounded-lg">
           取消
         </button>
         <button type="submit" 
-                class="px-6 py-2 hx-bg-red-500 hover:hx-bg-red-600 hx-text-white rounded-lg">
+                class="px-6 py-2 bg-red-500 hover:bg-red-600 text-white rounded-lg">
           提交订单
         </button>
       </div>
