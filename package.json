@@ -1,0 +1,13 @@
+{
+    "name": "store",
+    "version": "1.0.0",
+    "description": "My Hugo Site",
+    "scripts": {
+      "build": "hugo --gc --minify",
+      "serve": "hugo server"
+    },
+    "devDependencies": {
+      "hugo-bin": "^0.139.0" // 替换成你希望的 Hugo 版本
+    }
+  }
+  
