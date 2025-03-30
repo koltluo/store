@@ -1,8 +1,8 @@
 ---
 title: 第六章 行业应用宏使用说明
 weight: 7
-prev: /docs/functional-parameter-table/basic-functional-parameter-summary-table/
-next: /docs/industry-application-macro-usage-instructions/restore-to-factory-settings/
+prev: /docs/user-manual-for-skf8000-series-inverter/functional-parameter-table/basic-functional-parameter-summary-table/
+next: /docs/user-manual-for-skf8000-series-inverter/industry-application-macro-usage-instructions/restore-to-factory-settings/
 sidebar:
   open: false
 ---
@@ -14,10 +14,10 @@ sidebar:
 <!--more-->
 
 {{< cards >}}
-  {{< card link="/docs/industry-application-macro-usage-instructions/restore-to-factory-settings/" title="6.1 恢复出厂设置" icon="document-duplicate" >}}
-  {{< card link="/docs/industry-application-macro-usage-instructions/constant-pressure-water-supply-macro-settings/" title="6.2 恒压供水宏" icon="document-duplicate" >}}
-  {{< card link="/docs/industry-application-macro-usage-instructions/machine-tool-macro-settings/" title="6.3 机床宏100HZ" icon="document-duplicate" >}}
-  {{< card link="/docs/industry-application-macro-usage-instructions/engraving-machine-macro-settings/" title="6.4 雕刻机宏400HZ" icon="document-duplicate" >}}
+  {{< card link="/docs/user-manual-for-skf8000-series-inverter/industry-application-macro-usage-instructions/restore-to-factory-settings/" title="6.1 恢复出厂设置" icon="document-duplicate" >}}
+  {{< card link="/docs/user-manual-for-skf8000-series-inverter/industry-application-macro-usage-instructions/constant-pressure-water-supply-macro-settings/" title="6.2 恒压供水宏" icon="document-duplicate" >}}
+  {{< card link="/docs/user-manual-for-skf8000-series-inverter/industry-application-macro-usage-instructions/machine-tool-macro-settings/" title="6.3 机床宏100HZ" icon="document-duplicate" >}}
+  {{< card link="/docs/user-manual-for-skf8000-series-inverter/industry-application-macro-usage-instructions/engraving-machine-macro-settings/" title="6.4 雕刻机宏400HZ" icon="document-duplicate" >}}
     {{< card link="/products/vector-variable-frequency-driver/" title="立即购买" icon="shopping-cart" >}}
   {{< card link="/blog/faq/" title="变频器常见问题解答" icon="newspaper" >}}
 

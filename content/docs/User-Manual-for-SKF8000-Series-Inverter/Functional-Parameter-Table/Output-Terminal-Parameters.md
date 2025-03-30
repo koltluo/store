@@ -2,8 +2,8 @@
 title: 5.6 P5组：输出端子参数
 toc: true
 weight: 6
-next: /docs/functional-parameter-table/start-stop-control-parameters/
-prev: /docs/functional-parameter-table/input-terminal-parameters/
+next: /docs/user-manual-for-skf8000-series-inverter/functional-parameter-table/start-stop-control-parameters/
+prev: /docs/user-manual-for-skf8000-series-inverter/functional-parameter-table/input-terminal-parameters/
 ---
 {{< callout type="info" >}}
   变频器参数属性说明

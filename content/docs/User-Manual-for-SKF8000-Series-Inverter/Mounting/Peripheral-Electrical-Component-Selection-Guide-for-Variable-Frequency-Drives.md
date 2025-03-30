@@ -2,8 +2,8 @@
 title: 3.6 变频器外围电气元件选型指南
 toc: true
 weight: 6
-next: /docs/panel-display-and-operation/
-prev: /docs/mounting/mechanical-installation/
+next: /docs/user-manual-for-skf8000-series-inverter/panel-display-and-operation/
+prev: /docs/user-manual-for-skf8000-series-inverter/mounting/mechanical-installation/
 ---
 
 
@@ -50,6 +50,6 @@ prev: /docs/mounting/mechanical-installation/
 
 {{< cards >}}
   {{< card link="/products/vector-variable-frequency-driver/" title="立即购买高性能矢量变频器" icon="shopping-cart" >}}
-  {{< card link="/docs/table-of-contents/" title="变频器使用说明书目录" icon="newspaper"  >}}
+  {{< card link="/docs/user-manual-for-skf8000-series-inverter/table-of-contents/" title="变频器使用说明书目录" icon="newspaper"  >}}
   {{< card link="/blog/faΩ/" title="变频器常见问题解答" icon="newspaper" >}}
 {{< /cards >}}	

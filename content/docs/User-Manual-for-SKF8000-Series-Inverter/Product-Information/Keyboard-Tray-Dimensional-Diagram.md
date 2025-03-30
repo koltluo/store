@@ -2,8 +2,8 @@
 title: 2.5 键盘托盘尺寸图
 toc: true
 weight: 5
-next: /docs/Mounting/
-prev: /docs/product-information/product-selection-specification-table/
+next: /docs/user-manual-for-skf8000-series-inverter/Mounting/
+prev: /docs/user-manual-for-skf8000-series-inverter/product-information/product-selection-specification-table/
 ---
 ![键盘实物图](/images/jp.jpg)
 
@@ -15,6 +15,5 @@ prev: /docs/product-information/product-selection-specification-table/
 
 {{< cards >}}
   {{< card link="/products/vector-variable-frequency-driver/" title="立即购买高性能矢量变频器" icon="shopping-cart" >}}
-  {{< card link="/docs/table-of-contents/" title="变频器使用说明书目录" icon="newspaper"  >}}
   {{< card link="/blog/faq/" title="变频器常见问题解答" icon="newspaper" >}}
 {{< /cards >}}	

@@ -2,8 +2,8 @@
 title: 5.3 P2组：矢量参数
 toc: true
 weight: 3
-next: /docs/functional-parameter-table/v-f-control-parameters/
-prev: /docs/functional-parameter-table/motor-parameters/
+next: /docs/user-manual-for-skf8000-series-inverter/functional-parameter-table/v-f-control-parameters/
+prev: /docs/user-manual-for-skf8000-series-inverter/functional-parameter-table/motor-parameters/
 ---
 {{< callout type="info" >}}
   变频器参数属性说明

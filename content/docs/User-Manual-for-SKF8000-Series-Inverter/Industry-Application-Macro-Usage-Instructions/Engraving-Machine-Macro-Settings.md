@@ -2,8 +2,8 @@
 title: 6.4 雕刻机宏400HZ
 toc: true
 weight: 4
-next: /docs/fault-diagnosis-and-countermeasures/
-prev: /docs/industry-application-macro-usage-instructions/machine-tool-macro-settings/
+next: /docs/user-manual-for-skf8000-series-inverter/fault-diagnosis-and-countermeasures/
+prev: /docs/user-manual-for-skf8000-series-inverter/industry-application-macro-usage-instructions/machine-tool-macro-settings/
 ---
 
 X1正转启停，X2多段速端子1，X3多段速端子2，X4多段速端子3，三端子组合如下：  

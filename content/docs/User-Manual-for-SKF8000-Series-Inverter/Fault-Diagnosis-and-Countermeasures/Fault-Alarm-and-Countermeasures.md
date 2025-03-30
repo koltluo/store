@@ -2,8 +2,8 @@
 title: 7.1 故障报警及对策
 toc: true
 weight: 1
-next: /docs/fault-diagnosis-and-countermeasures/common-faults-and-remediation-procedures/
-prev: /docs/fault-diagnosis-and-countermeasures/
+next: /docs/user-manual-for-skf8000-series-inverter/fault-diagnosis-and-countermeasures/common-faults-and-remediation-procedures/
+prev: /docs/user-manual-for-skf8000-series-inverter/fault-diagnosis-and-countermeasures/
 ---
 变频器共有32项警示信息及保护功能，一旦故障发生，保护功能动作，变频器停止输出，变频器故障继电器接点动作，并在变频器显示面板上显示故障代码。用户在寻求服务之前，可以先按本节提示进行自查，分析故障原因，找出解决方法。如果需要寻求服务，与您所购变频器的代理商或直接与本公司联系。  
 21项警示信息中ERR22为硬件过流或过压信号，大部分情况下硬件过压故障造成ERR22报警。  
@@ -49,6 +49,5 @@ prev: /docs/fault-diagnosis-and-countermeasures/
 
 {{< cards >}}
   {{< card link="/products/vector-variable-frequency-driver/" title="立即购买高性能矢量变频器" icon="shopping-cart" >}}
-  {{< card link="/docs/table-of-contents/" title="变频器使用说明书目录" icon="newspaper"  >}}
   {{< card link="/blog/faq/" title="变频器常见问题解答" icon="newspaper" >}}
 {{< /cards >}}	

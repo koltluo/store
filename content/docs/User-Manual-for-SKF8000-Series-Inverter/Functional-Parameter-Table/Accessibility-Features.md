@@ -2,8 +2,8 @@
 title: 5.9 P8组：辅助功能参数
 toc: true
 weight: 9
-next: /docs/functional-parameter-table/malfunction-and-protection/
-prev: /docs/functional-parameter-table/keyboard-and-display/
+next: /docs/user-manual-for-skf8000-series-inverter/functional-parameter-table/malfunction-and-protection/
+prev: /docs/user-manual-for-skf8000-series-inverter/functional-parameter-table/keyboard-and-display/
 ---
 {{< callout type="info" >}}
   变频器参数属性说明

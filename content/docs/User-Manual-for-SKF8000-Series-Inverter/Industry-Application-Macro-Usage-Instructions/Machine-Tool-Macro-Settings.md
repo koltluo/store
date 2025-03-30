@@ -2,8 +2,8 @@
 title: 6.3 机床宏100HZ
 toc: true
 weight: 3
-next: /docs/industry-application-macro-usage-instructions/engraving-machine-macro-settings/
-prev: /docs/industry-application-macro-usage-instructions/constant-pressure-water-supply-macro-settings/
+next: /docs/user-manual-for-skf8000-series-inverter/industry-application-macro-usage-instructions/engraving-machine-macro-settings/
+prev: /docs/user-manual-for-skf8000-series-inverter/industry-application-macro-usage-instructions/constant-pressure-water-supply-macro-settings/
 ---
 
 AI1输入0~10V给定转速，X1端子正转启停，须接刹车电阻，如果刹车过压，须要注意减少P9组的过压失速增益值，此值过小，容易对IGBT冲击过大。

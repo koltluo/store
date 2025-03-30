@@ -2,8 +2,8 @@
 title: 3.2 主回路端子及功能
 toc: true
 weight: 1
-next: /docs/mounting/control-circuit-terminals-and-functions/
-prev: /docs/mounting/overall-equipment-dimensional-diagram/
+next: /docs/user-manual-for-skf8000-series-inverter/mounting/control-circuit-terminals-and-functions/
+prev: /docs/user-manual-for-skf8000-series-inverter/mounting/overall-equipment-dimensional-diagram/
 ---
 
 ![0.75KW-37KW变频器主回路端子示意图](/images/zhl1.jpg "SKF8000系列0.75KW-22KW变频器主回路端子示意图")

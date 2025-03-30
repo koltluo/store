@@ -2,8 +2,8 @@
 title: 5.4 P3组：V/F控制参数
 toc: true
 weight: 4
-next: /docs/functional-parameter-table/input-terminal-parameters/
-prev: /docs/functional-parameter-table/vector-parameter/
+next: /docs/user-manual-for-skf8000-series-inverter/functional-parameter-table/input-terminal-parameters/
+prev: /docs/user-manual-for-skf8000-series-inverter/functional-parameter-table/vector-parameter/
 ---
 {{< callout type="info" >}}
   变频器参数属性说明

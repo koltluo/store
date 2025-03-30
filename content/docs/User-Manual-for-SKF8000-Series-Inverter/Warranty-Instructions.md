@@ -2,8 +2,8 @@
 title: 保修说明
 toc: true
 weight: 10
-next: /docs/table-of-contents/
-prev: /docs/fault-diagnosis-and-countermeasures/common-faults-and-remediation-procedures/
+next: /docs/user-manual-for-skf8000-series-inverter/table-of-contents/
+prev: /docs/user-manual-for-skf8000-series-inverter/fault-diagnosis-and-countermeasures/common-faults-and-remediation-procedures/
 ---
 
 感谢您使用我公司的产品，为确保您在本公司购买的产品享受优质的服务，请阅读以下条款：
@@ -35,6 +35,6 @@ prev: /docs/fault-diagnosis-and-countermeasures/common-faults-and-remediation-pr
 
 {{< cards >}}
   {{< card link="/products/vector-variable-frequency-driver/" title="立即购买高性能矢量变频器" icon="shopping-cart" >}}
-  {{< card link="/docs/table-of-contents/" title="变频器使用说明书目录" icon="newspaper"  >}}
+  {{< card link="/docs/user-manual-for-skf8000-series-inverter/table-of-contents/" title="变频器使用说明书目录" icon="newspaper"  >}}
   {{< card link="/blog/faq/" title="变频器常见问题解答" icon="newspaper" >}}
 {{< /cards >}}	

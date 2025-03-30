@@ -2,8 +2,8 @@
 title: 5.8 P7组：键盘与显示
 toc: true
 weight: 8
-next: /docs/functional-parameter-table/accessibility-features/
-prev: /docs/functional-parameter-table/start-stop-control-parameters/
+next: /docs/user-manual-for-skf8000-series-inverter/functional-parameter-table/accessibility-features/
+prev: /docs/user-manual-for-skf8000-series-inverter/functional-parameter-table/start-stop-control-parameters/
 ---
 {{< callout type="info" >}}
   变频器参数属性说明

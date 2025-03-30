@@ -2,8 +2,8 @@
 title: 4.1 显示界面介绍
 toc: true
 weight: 1
-next: /docs/panel-display-and-operation/terminal-application-wiring-diagram/
-prev: /docs/panel-display-and-operation/
+next: /docs/user-manual-for-skf8000-series-inverter/panel-display-and-operation/terminal-application-wiring-diagram/
+prev: /docs/user-manual-for-skf8000-series-inverter/panel-display-and-operation/
 ---
 
 用操作面板，可对变频器进行功能参数修改，变频器工作状态监控和变频器进行启动、停止等操作，其外形及功能区如下图所示:

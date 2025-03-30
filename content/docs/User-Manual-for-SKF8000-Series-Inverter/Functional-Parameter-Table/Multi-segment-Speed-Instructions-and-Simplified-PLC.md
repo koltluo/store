@@ -2,8 +2,8 @@
 title: 5.13 Pc组：多段速指令和简易PLC
 toc: true
 weight: 13
-next: /docs/functional-parameter-table/communication-parameters/
-prev: /docs/functional-parameter-table/pulse-frequency-and-counting/
+next: /docs/user-manual-for-skf8000-series-inverter/functional-parameter-table/communication-parameters/
+prev: /docs/user-manual-for-skf8000-series-inverter/functional-parameter-table/pulse-frequency-and-counting/
 ---
 {{< callout type="info" >}}
   变频器参数属性说明

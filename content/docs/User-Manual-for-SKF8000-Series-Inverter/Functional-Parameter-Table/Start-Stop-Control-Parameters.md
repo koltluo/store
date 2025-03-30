@@ -2,8 +2,8 @@
 title: 5.7 P6组：启停控制参数
 toc: true
 weight: 7
-next: /docs/functional-parameter-table/keyboard-and-display/
-prev: /docs/functional-parameter-table/output-terminal-parameters/
+next: /docs/user-manual-for-skf8000-series-inverter/functional-parameter-table/keyboard-and-display/
+prev: /docs/user-manual-for-skf8000-series-inverter/functional-parameter-table/output-terminal-parameters/
 ---
 {{< callout type="info" >}}
   变频器参数属性说明

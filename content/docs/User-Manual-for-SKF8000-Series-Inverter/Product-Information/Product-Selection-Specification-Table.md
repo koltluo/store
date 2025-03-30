@@ -2,8 +2,8 @@
 title: 2.4 产品选型规格表
 toc: true
 weight: 4
-next: /docs/product-information/keyboard-tray-dimensional-diagram/
-prev: /docs/product-information/model-description/
+next: /docs/user-manual-for-skf8000-series-inverter/product-information/keyboard-tray-dimensional-diagram/
+prev: /docs/user-manual-for-skf8000-series-inverter/product-information/model-description/
 ---
 
 | 变频器型号G/P      | 额定功率(kw) | 电源容量 (KVA)    | 输入电流(A)    | 输出电流(A) | 适配电机G/P(KW) | 适配电机G/P(HP)  |
@@ -44,6 +44,6 @@ prev: /docs/product-information/model-description/
 
 {{< cards >}}
   {{< card link="/products/vector-variable-frequency-driver/" title="立即购买高性能矢量变频器" icon="shopping-cart" >}}
-  {{< card link="/docs/table-of-contents/" title="变频器使用说明书目录" icon="newspaper"  >}}
+  {{< card link="/docs/user-manual-for-skf8000-series-inverter/table-of-contents/" title="变频器使用说明书目录" icon="newspaper"  >}}
   {{< card link="/blog/faq/" title="变频器常见问题解答" icon="newspaper" >}}
 {{< /cards >}}	

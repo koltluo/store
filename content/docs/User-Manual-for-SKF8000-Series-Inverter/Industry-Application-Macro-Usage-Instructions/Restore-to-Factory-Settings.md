@@ -2,8 +2,8 @@
 title: 6.1 恢复出厂设置
 toc: true
 weight: 1
-next: /docs/industry-application-macro-usage-instructions/constant-pressure-water-supply-macro-settings/
-prev: /docs/industry-application-macro-usage-instructions/
+next: /docs/user-manual-for-skf8000-series-inverter/industry-application-macro-usage-instructions/constant-pressure-water-supply-macro-settings/
+prev: /docs/user-manual-for-skf8000-series-inverter/industry-application-macro-usage-instructions/
 ---
 
 P0-29=10000，不包括电机参数组的其它参数全部恢复出厂默认值，P0-29=10000，等同于PP-01=1的恢复出厂值效果。执行行业应用宏操作前，请先执行：P0-29=10000。

@@ -2,8 +2,8 @@
 title: 5.1 P0组：基本参数
 toc: true
 weight: 1
-next: /docs/functional-parameter-table/motor-parameters/
-prev: /docs/panel-display-and-operation/terminal-application-wiring-diagram/
+next: /docs/user-manual-for-skf8000-series-inverter/functional-parameter-table/motor-parameters/
+prev: /docs/user-manual-for-skf8000-series-inverter/panel-display-and-operation/terminal-application-wiring-diagram/
 ---
 {{< callout type="info" >}}
   变频器参数属性说明

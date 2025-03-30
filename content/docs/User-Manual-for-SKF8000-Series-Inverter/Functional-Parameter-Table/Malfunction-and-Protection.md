@@ -2,8 +2,8 @@
 title: 5.10 P9组：故障与保护参数
 toc: true
 weight: 10
-next: /docs/functional-parameter-table/pid-function-parameters/
-prev: /docs/functional-parameter-table/accessibility-features/
+next: /docs/user-manual-for-skf8000-series-inverter/functional-parameter-table/pid-function-parameters/
+prev: /docs/user-manual-for-skf8000-series-inverter/functional-parameter-table/accessibility-features/
 ---
 {{< callout type="info" >}}
   变频器参数属性说明

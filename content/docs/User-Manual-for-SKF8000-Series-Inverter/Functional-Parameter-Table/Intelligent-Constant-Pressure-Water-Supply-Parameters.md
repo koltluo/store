@@ -2,8 +2,8 @@
 title: 5.17 b0组：智能恒压供水参数
 toc: true
 weight: 17
-next: /docs/functional-parameter-table/parameter-monitoring/
-prev: /docs/functional-parameter-table/control-optimization-parameters/
+next: /docs/user-manual-for-skf8000-series-inverter/functional-parameter-table/parameter-monitoring/
+prev: /docs/user-manual-for-skf8000-series-inverter/functional-parameter-table/control-optimization-parameters/
 ---
 {{< callout type="info" >}}
   变频器参数属性说明

@@ -2,8 +2,8 @@
 title: 3.5 机械安装
 toc: true
 weight: 5
-next: /docs/mounting/peripheral-electrical-component-selection-guide-for-variable-frequency-drives/
-prev: /docs/mounting/control-terminals-and-functions/
+next: /docs/user-manual-for-skf8000-series-inverter/mounting/peripheral-electrical-component-selection-guide-for-variable-frequency-drives/
+prev: /docs/user-manual-for-skf8000-series-inverter/mounting/control-terminals-and-functions/
 ---
 
 ### 3.5.1安装环境：
@@ -51,6 +51,6 @@ prev: /docs/mounting/control-terminals-and-functions/
 
 {{< cards >}}
   {{< card link="/products/vector-variable-frequency-driver/" title="立即购买高性能矢量变频器" icon="shopping-cart" >}}
-  {{< card link="/docs/table-of-contents/" title="变频器使用说明书目录" icon="newspaper"  >}}
+  {{< card link="/docs/user-manual-for-skf8000-series-inverter/table-of-contents/" title="变频器使用说明书目录" icon="newspaper"  >}}
   {{< card link="/blog/faq/" title="变频器常见问题解答" icon="newspaper" >}}
 {{< /cards >}}	

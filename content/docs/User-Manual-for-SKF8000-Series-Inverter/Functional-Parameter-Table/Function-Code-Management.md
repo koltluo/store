@@ -2,8 +2,8 @@
 title: 5.15 PP组：功能码管理
 toc: true
 weight: 15
-next: /docs/functional-parameter-table/control-optimization-parameters/
-prev: /docs/functional-parameter-table/communication-parameters/
+next: /docs/user-manual-for-skf8000-series-inverter/functional-parameter-table/control-optimization-parameters/
+prev: /docs/user-manual-for-skf8000-series-inverter/functional-parameter-table/communication-parameters/
 ---
 {{< callout type="info" >}}
   变频器参数属性说明

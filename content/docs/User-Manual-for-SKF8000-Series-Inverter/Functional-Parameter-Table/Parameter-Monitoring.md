@@ -2,8 +2,8 @@
 title: 5.18 U0组：参数监视
 toc: true
 weight: 18
-next: /docs/industry-application-macro-usage-instructions/
-prev: /docs/functional-parameter-table/intelligent-constant-pressure-water-supply-parameters/
+next: /docs/user-manual-for-skf8000-series-inverter/industry-application-macro-usage-instructions/
+prev: /docs/user-manual-for-skf8000-series-inverter/functional-parameter-table/intelligent-constant-pressure-water-supply-parameters/
 ---
 {{< callout type="info" >}}
   变频器参数属性说明

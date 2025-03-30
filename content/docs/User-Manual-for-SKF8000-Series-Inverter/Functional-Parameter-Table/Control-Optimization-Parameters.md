@@ -2,8 +2,8 @@
 title: 5.16 A5组：控制优化参数
 toc: true
 weight: 16
-next: /docs/functional-parameter-table/intelligent-constant-pressure-water-supply-parameters/
-prev: /docs/functional-parameter-table/function-code-management/
+next: /docs/user-manual-for-skf8000-series-inverter/functional-parameter-table/intelligent-constant-pressure-water-supply-parameters/
+prev: /docs/user-manual-for-skf8000-series-inverter/functional-parameter-table/function-code-management/
 ---
 {{< callout type="info" >}}
   变频器参数属性说明

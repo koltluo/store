@@ -2,8 +2,8 @@
 title: 2.6 变频器的日常保养与维护
 toc: true
 weight: 6
-next: /docs/Mounting/
-prev: /docs/product-information/product-selection-specification-table/
+next: /docs/user-manual-for-skf8000-series-inverter/Mounting/
+prev: /docs/user-manual-for-skf8000-series-inverter/product-information/product-selection-specification-table/
 ---
 ### 2.6.1 日常保养
 由于环境的温度、湿度、粉尘及振动的影响，会导致变频器内部的器件老化，导致变频器潜在的故障发生或降低了变频器的使用寿命。因此，有必要对变频器实施日常和定期的保养及维护。  
@@ -52,6 +52,6 @@ prev: /docs/product-information/product-selection-specification-table/
 
 {{< cards >}}
   {{< card link="/products/vector-variable-frequency-driver/" title="立即购买高性能矢量变频器" icon="shopping-cart" >}}
-  {{< card link="/docs/table-of-contents/" title="变频器使用说明书目录" icon="newspaper"  >}}
+  {{< card link="/docs/user-manual-for-skf8000-series-inverter/table-of-contents/" title="变频器使用说明书目录" icon="newspaper"  >}}
   {{< card link="/blog/faq/" title="变频器常见问题解答" icon="newspaper" >}}
 {{< /cards >}}	

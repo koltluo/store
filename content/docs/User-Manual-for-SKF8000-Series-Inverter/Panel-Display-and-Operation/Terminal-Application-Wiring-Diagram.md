@@ -2,8 +2,8 @@
 title: 4.2 端子应用接线图
 toc: true
 weight: 2
-next: /docs/functional-parameter-table/
-prev: /docs/panel-display-and-operation/display-interface-introduction/
+next: /docs/user-manual-for-skf8000-series-inverter/functional-parameter-table/
+prev: /docs/user-manual-for-skf8000-series-inverter/panel-display-and-operation/display-interface-introduction/
 ---
 
 ## 0.75~37KW变频器接线图

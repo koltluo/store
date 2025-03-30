@@ -2,8 +2,8 @@
 title: 3.4 控制端子及功能
 toc: true
 weight: 4
-next: /docs/mounting/mechanical-installation/
-prev: /docs/mounting/control-circuit-terminals-and-functions/
+next: /docs/user-manual-for-skf8000-series-inverter/mounting/mechanical-installation/
+prev: /docs/user-manual-for-skf8000-series-inverter/mounting/control-circuit-terminals-and-functions/
 ---
 
 | 类别     |  端子符号|    端子名称  | 功能说明|  

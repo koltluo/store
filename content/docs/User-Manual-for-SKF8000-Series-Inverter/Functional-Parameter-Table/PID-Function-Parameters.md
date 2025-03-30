@@ -2,8 +2,8 @@
 title: 5.11 PA组：PID功能参数
 toc: true
 weight: 11
-next: /docs/functional-parameter-table/pulse-frequency-and-counting/
-prev: /docs/functional-parameter-table/malfunction-and-protection/
+next: /docs/user-manual-for-skf8000-series-inverter/functional-parameter-table/pulse-frequency-and-counting/
+prev: /docs/user-manual-for-skf8000-series-inverter/functional-parameter-table/malfunction-and-protection/
 ---
 {{< callout type="info" >}}
   变频器参数属性说明

@@ -2,8 +2,8 @@
 title: 3.3 控制回路端子及功能
 toc: true
 weight: 3
-next: /docs/mounting/control-terminals-and-functions/
-prev: /docs/mounting/main-circuit-terminals-and-functions/
+next: /docs/user-manual-for-skf8000-series-inverter/mounting/control-terminals-and-functions/
+prev: /docs/user-manual-for-skf8000-series-inverter/mounting/main-circuit-terminals-and-functions/
 ---
 
 ![变频器控制回路端子示意图](/images/kzhl.jpg "SKF8000系列通用变频器控制回路端子示意图")

@@ -2,8 +2,8 @@
 title: 5.5 P4组：输入端子参数
 toc: true
 weight: 5
-next: /docs/functional-parameter-table/output-terminal-parameters/
-prev: /docs/functional-parameter-table/v-f-control-parameters/
+next: /docs/user-manual-for-skf8000-series-inverter/functional-parameter-table/output-terminal-parameters/
+prev: /docs/user-manual-for-skf8000-series-inverter/functional-parameter-table/v-f-control-parameters/
 ---
 {{< callout type="info" >}}
   变频器参数属性说明

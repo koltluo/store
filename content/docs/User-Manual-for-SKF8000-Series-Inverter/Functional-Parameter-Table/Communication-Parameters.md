@@ -2,8 +2,8 @@
 title: 5.14 Pd组：通讯参数
 toc: true
 weight: 14
-next: /docs/functional-parameter-table/function-code-management/
-prev: /docs/functional-parameter-table/multi-segment-speed-instructions-and-simplified-plc/
+next: /docs/user-manual-for-skf8000-series-inverter/functional-parameter-table/function-code-management/
+prev: /docs/user-manual-for-skf8000-series-inverter/functional-parameter-table/multi-segment-speed-instructions-and-simplified-plc/
 ---
 {{< callout type="info" >}}
   变频器参数属性说明

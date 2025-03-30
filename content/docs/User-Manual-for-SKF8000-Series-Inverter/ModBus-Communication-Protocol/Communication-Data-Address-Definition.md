@@ -1,8 +1,8 @@
 ---
 title: 8.2 通讯数据地址定义
 weight: 2
-prev: /docs/modbus-communication-protocol/agreement-content/
-next: /docs/warranty-instructions/
+prev: /docs/user-manual-for-skf8000-series-inverter/modbus-communication-protocol/agreement-content/
+next: /docs/user-manual-for-skf8000-series-inverter/warranty-instructions/
 sidebar:
   open: false
 ---
@@ -45,7 +45,7 @@ AC-08功能参数：其通讯地址为AC08，其中ACH代表AC组功能参数，
 U组监视数据描述见说明书相关U0组功能描述，其地址定义如下：  
 U0～UF，其通讯地址高十六位为70～7F，低十六位为监视参数在组中的序号，举例如下：   U0-11，其通讯地址为700BH。  
 2、变频器故障描述  
-通讯读取变频器故障时通讯地址固定为8000H，上位机通过读取该地址数据可以获取当前变频器故障代码，故障代码描述见[第五章P9-14功能码](/docs/functional-parameter-table/malfunction-and-protection/) 中定义。  
+通讯读取变频器故障时通讯地址固定为8000H，上位机通过读取该地址数据可以获取当前变频器故障代码，故障代码描述见[第五章P9-14功能码](/docs/user-manual-for-skf8000-series-inverter/functional-parameter-table/malfunction-and-protection/) 中定义。  
 3、变频器运行状态
 通讯读取变频器运行状态时，通讯地址因定为3000H，上位机通过读取该地焉数据，可以获取当前变频器运行状态信息，定义如下：
  |变频器运行状态通讯地址|读取状态字定义|                   
@@ -105,7 +105,7 @@ U0～UF，其通讯地址高十六位为70～7F，低十六位为监视参数在
 <!--more-->
 
 {{< cards >}}
-  {{< card link="/docs/product-information/technical-specifications-table/" title="5.1 基本功能参数简表" icon="document-duplicate" >}}
+  {{< card link="/docs/user-manual-for-skf8000-series-inverter/product-information/technical-specifications-table/" title="5.1 基本功能参数简表" icon="document-duplicate" >}}
  {{< card link="/products/vector-variable-frequency-driver/" title="立即购买" icon="shopping-cart" >}}
   {{< card link="/blog/faq/" title="变频器常见问题解答" icon="newspaper" >}}
 

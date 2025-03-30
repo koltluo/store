@@ -2,8 +2,8 @@
 title: 3.1 整机结构尺寸图
 toc: true
 weight: 1
-next: /docs/mounting/main-circuit-terminals-and-functions/
-prev: /docs/mounting/
+next: /docs/user-manual-for-skf8000-series-inverter/mounting/main-circuit-terminals-and-functions/
+prev: /docs/user-manual-for-skf8000-series-inverter/mounting/
 ---
 
 ![SKF8000系列矢量变频器外形及安装尺寸图](/images/jgt.jpg "SKF8000系列矢量变频器外形及安装尺寸图")

@@ -2,8 +2,8 @@
 title: 5.12 Pb组：摆频、定长和计数
 toc: true
 weight: 12
-next: /docs/functional-parameter-table/multi-segment-speed-instructions-and-simplified-plc/
-prev: /docs/functional-parameter-table/pid-function-parameters/
+next: /docs/user-manual-for-skf8000-series-inverter/functional-parameter-table/multi-segment-speed-instructions-and-simplified-plc/
+prev: /docs/user-manual-for-skf8000-series-inverter/functional-parameter-table/pid-function-parameters/
 ---
 {{< callout type="info" >}}
   变频器参数属性说明

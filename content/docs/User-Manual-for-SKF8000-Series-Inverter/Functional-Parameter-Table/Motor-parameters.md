@@ -2,8 +2,8 @@
 title: 5.2 P1组：电机参数
 toc: true
 weight: 2
-next: /docs/functional-parameter-table/vector-parameter/
-prev: /docs/functional-parameter-table/basic-parameters/
+next: /docs/user-manual-for-skf8000-series-inverter/functional-parameter-table/vector-parameter/
+prev: /docs/user-manual-for-skf8000-series-inverter/functional-parameter-table/basic-parameters/
 ---
 {{< callout type="info" >}}
   变频器参数属性说明

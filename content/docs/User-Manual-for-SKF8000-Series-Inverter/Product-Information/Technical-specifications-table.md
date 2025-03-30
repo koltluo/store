@@ -2,7 +2,7 @@
 title: 2.1 技术规范表
 toc: true
 weight: 1
-next: /docs/Product-Information/Product-aluminum-plate/
+next: /docs/user-manual-for-skf8000-series-inverter/Product-Information/Product-aluminum-plate/
 prev: /Safety-precautions/
 ---
 
@@ -51,6 +51,6 @@ prev: /Safety-precautions/
 
 {{< cards >}}
   {{< card link="/products/vector-variable-frequency-driver/" title="立即购买高性能矢量变频器" icon="shopping-cart" >}}
-  {{< card link="/docs/table-of-contents/" title="变频器使用说明书目录" icon="newspaper"  >}}
+  {{< card link="/docs/user-manual-for-skf8000-series-inverter/table-of-contents/" title="变频器使用说明书目录" icon="newspaper"  >}}
   {{< card link="/blog/faq/" title="变频器常见问题解答" icon="newspaper" >}}
 {{< /cards >}}	

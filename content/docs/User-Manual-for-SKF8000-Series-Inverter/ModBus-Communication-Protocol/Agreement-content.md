@@ -1,8 +1,8 @@
 ---
 title: 8.1 协议内容
 weight: 1
-prev: /docs/fault-diagnosis-and-countermeasures/common-faults-and-remediation-procedures/
-next: /docs/modbus-communication-protocol/communication-data-address-definition/
+prev: /docs/user-manual-for-skf8000-series-inverter/fault-diagnosis-and-countermeasures/common-faults-and-remediation-procedures/
+next: /docs/user-manual-for-skf8000-series-inverter/modbus-communication-protocol/communication-data-address-definition/
 sidebar:
   open: false
 ---
@@ -209,7 +209,7 @@ U组：只可读取,不可更改参数.
  {{< callout type="info" >}}
  注意：  
 Pd-05=1：选择标准的Modbus协议。   
-Pd-05=0：读命令时，从机返回字节数比标准的Modbus协议多一个字节，具体参见本协议[通讯资料结构](/zh-cn/docs/modbus-communication-protocol/#813-%e9%80%9a%e8%ae%af%e8%b5%84%e6%96%99%e7%bb%93%e6%9e%84)部分。
+Pd-05=0：读命令时，从机返回字节数比标准的Modbus协议多一个字节，具体参见本协议[通讯资料结构](/zh-cn/docs/user-manual-for-skf8000-series-inverter/modbus-communication-protocol/#813-%e9%80%9a%e8%ae%af%e8%b5%84%e6%96%99%e7%bb%93%e6%9e%84)部分。
 {{< /callout >}}
 
  |功能码|名称| 设定范围| 出厂值|                    
@@ -229,7 +229,7 @@ Pd-05=0：读命令时，从机返回字节数比标准的Modbus协议多一个�
 <!--more-->
 
 {{< cards >}}
-  {{< card link="/docs/product-information/technical-specifications-table/" title="5.1 基本功能参数简表" icon="document-duplicate" >}}
+  {{< card link="/docs/user-manual-for-skf8000-series-inverter/product-information/technical-specifications-table/" title="5.1 基本功能参数简表" icon="document-duplicate" >}}
  {{< card link="/products/vector-variable-frequency-driver/" title="立即购买" icon="shopping-cart" >}}
   {{< card link="/blog/faq/" title="变频器常见问题解答" icon="newspaper" >}}
 
