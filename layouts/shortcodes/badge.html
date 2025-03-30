@@ -5,32 +5,16 @@
   {{- $link := .Get "link" | default "" -}}
   {{- $icon := .Get "icon" | default "" -}}
 
+  {{- $badgeParams := dict "content" $content "type" $type "class" $class "border" true "icon" $icon -}}  <!-- 提取通用参数 -->
+
   {{- if $link -}}
     <a href="{{ $link }}" title="{{ $content | plainify }}" target="_blank">
-      {{- partial "shortcodes/badge.html" (dict
-        "content" $content 
-        "type" $type
-        "class" $class
-        "border" true
-        "icon" $icon
-        )
-      -}}
+      {{- partial "shortcodes/badge.html" $badgeParams -}}
     </a>
   {{- else -}}
-    {{- partial "shortcodes/badge.html" (dict
-      "content" $content 
-      "type" $type
-      "class" $class
-      "border" true
-      "icon" $icon
-      )
-    -}}
+    {{- partial "shortcodes/badge.html" $badgeParams -}}
   {{- end -}}
 {{- else -}}
   {{- $content := .Get 0 -}}
-  {{- partial "shortcodes/badge.html" (dict
-    "content" $content 
-    "border" true
-    )
-  -}}
+  {{- partial "shortcodes/badge.html" (dict "content" $content "border" true) -}}
 {{- end -}}
