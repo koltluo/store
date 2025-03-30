@@ -21,7 +21,6 @@
   <div class="flex flex-wrap sm:flex-nowrap items-center justify-between gap-4">
     <!-- 语言切换和主题切换 -->
     <div class="flex gap-2">
-      {{- partial "language-switch.html" (dict "context" .) -}}
       {{- with $displayThemeToggle }}
         {{ partial "theme-toggle.html" }}
       {{ end -}}
