@@ -15,7 +15,7 @@
             class="w-full h-full object-cover bg-gray-100 rounded-lg" 
             alt="商品图片"
             loading="lazy"
-            >
+>
           </div>
           {{ end }}
         </div>
@@ -40,31 +40,31 @@
     <div class="space-y-6">
       <h1 class="text-3xl font-bold mb-6">{{ .Title }}</h1>
 
-      <!-- 价格显示 -->
-      <div class="bg-gray-50 p-4 rounded-lg">
-        <div class="space-y-2">
-          <!-- 价格信息 -->
-          <div class="flex items-center gap-4">
-            <span class="text-3xl font-bold text-red-600" id="price">¥{{ .Params.price }}</span>
-            <del class="text-gray-500 text-xl" id="originalPrice">¥{{ .Params.originalPrice }}</del>
-            {{ if and (.Params.originalPrice) (gt .Params.originalPrice .Params.price) }}
-            <div class="flex items-center gap-2">
-              <span class="text-green-600 bg-green-100 px-2 py-1 rounded" id="savings">
-                立省¥<span id="savingsValue">{{ sub (float .Params.originalPrice) (float .Params.price) | lang.FormatNumber 2 }}</span>
-              </span>
-              <!-- 倒计时 -->
-              <div class="bg-red-50 px-3 py-1 rounded-lg text-sm text-red-600 font-semibold" id="countdown">
-                剩余时间：<span class="bg-white px-2 py-1 rounded shadow-sm font-bold">02:00:00</span>
-              </div>
-            </div>
-            {{ end }}
-          </div>
-          <!-- 销量信息 -->
-          <div class="text-sm text-gray-500">
-            累计销量 {{ .Params.sales }} 件
-          </div>
+<!-- 价格显示 -->
+<div class="bg-gray-50 p-4 rounded-lg">
+  <div class="space-y-2">
+    <!-- 价格信息 -->
+    <div class="flex items-center gap-4">
+      <span class="text-3xl font-bold text-red-600" id="price">¥{{ .Params.price }}</span>
+      <del class="text-gray-500 text-xl" id="originalPrice">¥{{ .Params.originalPrice }}</del>
+      {{ if and (.Params.originalPrice) (gt .Params.originalPrice .Params.price) }}
+      <div class="flex items-center gap-2">
+        <span class="text-green-600 bg-green-100 px-2 py-1 rounded" id="savings">
+          立省¥{{ sub (float .Params.originalPrice) (float .Params.price) | lang.FormatNumber 2 }}
+        </span>
+        <!-- 倒计时 -->
+        <div class="bg-red-50 px-3 py-1 rounded-lg text-sm text-red-600 font-semibold" id="countdown">
+          剩余时间：<span class="bg-white px-2 py-1 rounded shadow-sm font-bold">02:00:00</span>
         </div>
       </div>
+      {{ end }}
+    </div>
+    <!-- 销量信息 -->
+    <div class="text-sm text-gray-500">
+      累计销量 {{ .Params.sales }} 件
+    </div>
+  </div>
+</div>
       <!-- 规格选择 -->
       <div class="space-y-4">
         {{ range .Params.specifications }}
@@ -232,16 +232,12 @@
     btn.addEventListener('click', function() {
       document.querySelectorAll('.spec-btn').forEach(b => b.classList.remove('border-red-500'));
       this.classList.add('border-red-500');
-
-      const price = parseFloat(this.dataset.price);
-      const originalPrice = parseFloat(this.dataset.originalPrice);
-
-      document.getElementById('price').textContent = `¥${price.toFixed(2)}`;
-      document.getElementById('originalPrice').textContent = `¥${originalPrice.toFixed(2)}`;
-
-      if (document.getElementById('savings')) {
-        const savings = originalPrice - price;
-        document.getElementById('savingsValue').textContent = savings.toFixed(2);
+      
+      document.getElementById('price').textContent = `¥${this.dataset.price}`;
+      document.getElementById('originalPrice').textContent = `¥${this.dataset.originalPrice}`;
+      if(document.getElementById('savings')) {
+        document.getElementById('savings').textContent = 
+          `立省¥${(this.dataset.originalPrice - this.dataset.price).toFixed(2)}`;
       }
     });
   });
@@ -258,7 +254,7 @@
   // 购物车管理器
   const cartManager = {
     key: 'global_cart',
-
+    
     getCart() {
       return JSON.parse(localStorage.getItem(this.key)) || [];
     },
@@ -270,8 +266,8 @@
 
     addItem(newItem) {
       const cart = this.getCart();
-      const existing = cart.find(item =>
-        item.id === newItem.id &&
+      const existing = cart.find(item => 
+        item.id === newItem.id && 
         item.spec === newItem.spec
       );
 
@@ -302,7 +298,7 @@
         <a href="/cart" class="ml-4 underline">去结算</a>
       `;
       document.body.appendChild(toast);
-
+      
       setTimeout(() => {
         toast.classList.replace('animate-slideIn', 'animate-slideOut');
         setTimeout(() => toast.remove(), 500);
@@ -358,8 +354,8 @@ const endTime = new Date().getTime() + 2 * 60 * 60 * 1000;
     setTimeout(updateCountdown, 1000);
   }
   // 初始化倒计时
-  updateCountdown();
-</script>
+  updateCountdown();  
+  </script>
 
 <style>
   @keyframes slideIn {
