@@ -1,13 +1,13 @@
 {
-    "name": "store",
-    "version": "1.0.0",
-    "description": "My Hugo Site",
+    "name": "store",  // 替换成你的项目名称
+    "version": "1.0.0",  // 设置一个有效的版本号
+    "description": "Your Hugo Store", // 添加项目描述 (可选)
     "scripts": {
       "build": "hugo --gc --minify",
       "serve": "hugo server"
     },
     "devDependencies": {
-      "hugo-bin": "^0.139.0" // 替换成你希望的 Hugo 版本
+      "hugo-bin": "^0.139.0"  // 确保 hugo-bin 版本号匹配或接近你的 Hugo 版本
     }
   }
   
