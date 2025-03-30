@@ -13,7 +13,7 @@ markup:
     renderer:
       unsafe: true
   highlight:
-    noClasses: false
+    noClasses: true
 
 enableInlineShortcodes: true    
 

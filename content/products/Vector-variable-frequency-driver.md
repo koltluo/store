@@ -12,94 +12,94 @@ specifications:
   - name: "型号"
     options:
       - name: "0.75KW"
-        price: 720
+        price: 530
         originalPrice: 750
       - name: "1.5KW"
-        price: 720
+        price: 540
         originalPrice: 800
       - name: "2.2KW"
-        price: 720
+        price: 550
         originalPrice: 850
       - name: "4KW"
         price: 720
         originalPrice: 1000
       - name: "5.5KW"
-        price: 720
+        price: 800
         originalPrice: 1100
       - name: "7.5KW"
-        price: 720
+        price: 850
         originalPrice: 1200
       - name: "11KW"
-        price: 720
+        price: 1150
         originalPrice: 1500
       - name: "15KW"
-        price: 720
+        price: 1250
         originalPrice: 1650
       - name: "18.5KW"
-        price: 720
+        price: 1300
         originalPrice: 2000
       - name: "22KW"
-        price: 720
+        price: 1700
         originalPrice: 2500
       - name: "30KW"
-        price: 750
+        price: 2150
         originalPrice: 2900
       - name: "37KW"
-        price: 850
+        price: 2300
         originalPrice: 3700
       - name: "45KW"
-        price: 900
+        price: 3900
         originalPrice: 4600
       - name: "55KW"
-        price: 1050
+        price: 4100
         originalPrice: 4900
       - name: "75KW"
-        price: 1200
+        price: 5300
         originalPrice: 6700
       - name: "90KW"
-        price: 1600
+        price: 6200
         originalPrice: 7500
       - name: "110KW"
-        price: 2000
+        price: 6600
         originalPrice: 9800
       - name: "132KW"
-        price: 2100
+        price: 9600
         originalPrice: 11300
       - name: "160KW"
-        price: 2300
+        price: 10800
         originalPrice: 12300
       - name: "185KW"
-        price: 2400
+        price: 11900
         originalPrice: 14000
       - name: "200KW"
-        price: 2600
+        price: 12600
         originalPrice: 18400
       - name: "220KW"
-        price: 2700
+        price: 15600
         originalPrice: 20300
       - name: "250KW"
-        price: 2800
+        price: 17400
         originalPrice: 21000
       - name: "280KW"
-        price: 2900
+        price: 20400
         originalPrice: 23400
       - name: "320KW"
-        price: 3100
+        price: 24000
         originalPrice: 30000
       - name: "350KW"
-        price: 3200
+        price: 25800
         originalPrice: 34650
       - name: "400KW"
-        price: 4500
+        price: 27600
         originalPrice: 35770
       - name: "450KW"
-        price: 5000
-        originalPrice: 38960
+        price: 38000
+        originalPrice: 39960
       - name: "500KW"
-        price: 5900
+        price: 39500
         originalPrice: 42850
       - name: "630KW"
-        price: 6200
+        price: 42500
         originalPrice: 56300
 
 specs:

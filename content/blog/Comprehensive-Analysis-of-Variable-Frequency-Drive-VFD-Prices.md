@@ -124,7 +124,7 @@ excludeSearch: true
 直接点击下面链接购买高性能矢量变频器
 
 {{< cards >}}
-  {{< card link="https://item.taobao.com/item.htm?ft=t&id=771441899583" title="立即购买" icon="shopping-cart" subtitle="直接点击链接购买高性能矢量变频器" >}}
+  {{< card link="/products/vector-variable-frequency-driver/" title="立即购买" icon="shopping-cart" subtitle="直接点击链接购买高性能矢量变频器" >}}
   {{< card link="/docs" title="变频器使用说明书" icon="newspaper" subtitle="SKF8000系列高性能矢量变频器使用说明书" >}}
 {{< /cards >}}	
 
