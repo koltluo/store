@@ -77,17 +77,21 @@ specifications:
 
 specs:
   发货时间: "24小时内"
-  额定电压: "380V ±15%"
+  额定电压: "AC380V ±15%"
   质保时间: "12个月"
-  防护等级: "IP55"
+  版本系列: "GE300"
   冷却方式: "强制风冷"
-  外形尺寸: "300×420×210mm"
+  商品品牌: "森阔"
 
 images:
-  - "/images/products/bypass-soft-starter-1.jpg"
   - "/images/products/bypass-soft-starter-2.jpg"
+  - "/images/products/bypass-soft-starter-1.jpg"
   - "/images/products/bypass-soft-starter-3.jpg"
   - "/images/products/bypass-soft-starter-4.jpg"
+  - "/images/products/bypass-soft-starter-5.jpg"
+  - "/images/products/bypass-soft-starter-6.jpg"
+  - "/images/products/bypass-soft-starter-7.jpg"
+  - "/images/products/bypass-soft-starter-8.jpg"
 
 ---
 
