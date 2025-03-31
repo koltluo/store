@@ -1,7 +1,7 @@
 ---
-title: "森阔SKF8000系列高性能矢量变频器"
+title: "森阔SKF600系列高性能矢量变频器"
 date: 2025-03-20
-id: SKF-8000-4T
+id: SKF-600-4T
 categories: ["变频器"]
 brands: ["森阔"]
 price: 530.00
@@ -111,11 +111,15 @@ specs:
   商品品牌: "森阔"
 
 images:
-  - "/images/products/VFD-1.jpg"
-  - "/images/products/VFD-2.jpg"
-  - "/images/products/VFD-3.jpg"
-  - "/images/products/VFD-4.jpg"
-  - "/images/products/VFD-5.jpg"
+  - "/images/products/skf600-series-high-performance-vector-inverter-2.jpg"
+  - "/images/products/skf600-series-high-performance-vector-inverter-1.jpg"
+  - "/images/products/skf600-series-high-performance-vector-inverter-3.jpg"
+  - "/images/products/skf600-series-high-performance-vector-inverter-4.jpg"
+  - "/images/products/skf600-series-high-performance-vector-inverter-5.jpg"
+  - "/images/products/skf600-series-high-performance-vector-inverter-6.jpg"
+  - "/images/products/skf600-series-high-performance-vector-inverter-7.jpg"
+  - "/images/products/skf600-series-high-performance-vector-inverter-8.jpg"
+  - "/images/products/skf600-series-high-performance-vector-inverter-9.jpg"
 
 ---
 **变频器**作为工业自动化核心部件，采用先进矢量控制技术，精准调节电机转速，实现节能降耗与设备高效运行。支持三相异步电机、永磁同步电机，适配风机、水泵、压缩机等场景，兼容Modbus通讯协议，助力工业4.0智能化升级。  

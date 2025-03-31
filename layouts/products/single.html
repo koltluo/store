@@ -1,7 +1,7 @@
 {{ define "main" }}
 <!-- 延迟加载 Swiper CSS -->
-<link rel="preload" href="https://unpkg.com/swiper/swiper-bundle.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-<noscript><link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css"></noscript>
+<link rel="preload" href="/css/swiper-bundle.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="/css/swiper-bundle.min.css"></noscript>
 
 <div class="container max-w-7xl mx-auto px-4 py-8">
   <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -178,7 +178,7 @@
   </div>
 </div>
 
-<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+<script src="/js/swiper-bundle.min.js"></script>
 <script>
   // 轮播初始化
   window.addEventListener('load', () => {

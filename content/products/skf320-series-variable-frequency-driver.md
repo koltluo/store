@@ -1,7 +1,7 @@
 ---
-title: "森阔SKF8000系列高性能矢量变频器"
+title: "森阔SKF320系列单相220V转三相380V高性能矢量变频器"
 date: 2025-03-20
-id: SKF-8000-4T
+id: SKF-320-S
 categories: ["变频器"]
 brands: ["森阔"]
 price: 530.00
@@ -28,94 +28,24 @@ specifications:
         originalPrice: 1100
       - name: "7.5KW"
         price: 850
-        originalPrice: 1200
-      - name: "11KW"
-        price: 1150
-        originalPrice: 1500
-      - name: "15KW"
-        price: 1250
-        originalPrice: 1650
-      - name: "18.5KW"
-        price: 1300
-        originalPrice: 2000
-      - name: "22KW"
-        price: 1700
-        originalPrice: 2500
-      - name: "30KW"
-        price: 2150
-        originalPrice: 2900
-      - name: "37KW"
-        price: 2300
-        originalPrice: 3700
-      - name: "45KW"
-        price: 3900
-        originalPrice: 4600
-      - name: "55KW"
-        price: 4100
-        originalPrice: 4900
-      - name: "75KW"
-        price: 5300
-        originalPrice: 6700
-      - name: "90KW"
-        price: 6200
-        originalPrice: 7500
-      - name: "110KW"
-        price: 6600
-        originalPrice: 9800
-      - name: "132KW"
-        price: 9600
-        originalPrice: 11300
-      - name: "160KW"
-        price: 10800
-        originalPrice: 12300
-      - name: "185KW"
-        price: 11900
-        originalPrice: 14000
-      - name: "200KW"
-        price: 12600
-        originalPrice: 18400
-      - name: "220KW"
-        price: 15600
-        originalPrice: 20300
-      - name: "250KW"
-        price: 17400
-        originalPrice: 21000
-      - name: "280KW"
-        price: 20400
-        originalPrice: 23400
-      - name: "320KW"
-        price: 24000
-        originalPrice: 30000
-      - name: "350KW"
-        price: 25800
-        originalPrice: 34650
-      - name: "400KW"
-        price: 27600
-        originalPrice: 35770
-      - name: "450KW"
-        price: 38000
-        originalPrice: 39960
-      - name: "500KW"
-        price: 39500
-        originalPrice: 42850
-      - name: "630KW"
-        price: 42500
-        originalPrice: 56300
-
+        originalPrice: 1100
 specs:
   发货时间: "24小时内"
-  额定电压: "AC380V ±15%"
+  输入电压: "AC220V 1PH"
+  输出电压: "AC380V 3PH"
   质保时间: "12个月"
-  机型系列: "重载模块"
+  机型系列: "SK320"
   冷却方式: "强制风冷"
   商品品牌: "森阔"
+  额定频率: "50Hz"
 
 images:
-  - "/images/products/VFD-1.jpg"
-  - "/images/products/VFD-2.jpg"
-  - "/images/products/VFD-3.jpg"
-  - "/images/products/VFD-4.jpg"
-  - "/images/products/VFD-5.jpg"
+  - "/images/products/skf320-series-variable-frequency-driver-1.jpg"
+  - "/images/products/skf320-series-variable-frequency-driver-2.jpg"
+  - "/images/products/skf320-series-variable-frequency-driver-3.jpg"
+  - "/images/products/skf320-series-variable-frequency-driver-4.jpg"
+  - "/images/products/skf320-series-variable-frequency-driver-5.jpg"
+  - "/images/products/skf320-series-variable-frequency-driver-6.jpg"
 
 ---
 **变频器**作为工业自动化核心部件，采用先进矢量控制技术，精准调节电机转速，实现节能降耗与设备高效运行。支持三相异步电机、永磁同步电机，适配风机、水泵、压缩机等场景，兼容Modbus通讯协议，助力工业4.0智能化升级。  
