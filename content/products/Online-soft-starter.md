@@ -84,6 +84,7 @@ specs:
   商品品牌: "森阔"
 
 images:
+  - "/images/products/online-soft-starte-7.jpg"
   - "/images/products/online-soft-starte-3.jpg"
   - "/images/products/online-soft-starte-2.jpg"
   - "/images/products/online-soft-starte-1.jpg"
@@ -121,17 +122,8 @@ images:
 通过以上工作原理，在线软启动器能够实现对电动机的软启动，减少启动时的电流冲击和机械冲击，延长电动机和相关设备的使用寿命，同时也降低了对电网的影响。{{< /tab >}}
 
   {{< tab >}}
-![5.5~55KW在线软启动器](/images/products/online-soft-starte-6.jpeg "5.5~55KW在线软启动器")
+![GE300系列在线软启动器外形尺寸图](/images/products/online-soft-starte-6.jpg "GE300系列在线软启动器外形尺寸图")
 
-![75~630KW在线软启动器](/images/products/online-soft-starte-6.jpeg "75~630KW在线软启动器")
-
-| 规格型号         | 外形尺寸 (mm) | 安装尺寸 (mm) | 重量 (kg) |
-|------------------|---------------|---------------|-----------|
-| 5.5kW~55kW       | H=320, W=155, D=190 | H1=285, W1=85, Φ=M6 | 6         |
-| 75kW~115kW       | H=380, W=210, D=255 | H1=325, W1=150, Φ=M8 | 12.5      |
-| 132kW~350kW      | H=530, W=390, D=260 | H1=430, W1=330, Φ=M8 | 29        |
-| 400kW~450kW      | H=645, W=495, D=287 | H1=527, W1=335, Φ=M10 | 35        |
-| 500kW~800kW      | H=780, W=605, D=335 | H1=620, W1=395, Φ=M10 | 75        |
 
   {{< /tab >}}
   {{< tab >}}
