@@ -10,10 +10,24 @@ module:
     
 markup:
   goldmark:
+    extensions:
+      passthrough:
+        delimiters:
+          block:
+          - - \[
+            - \]
+          - - $$
+            - $$
+          inline:
+          - - \(
+            - \)
+        enable: true
     renderer:
       unsafe: true
   highlight:
     noClasses: true
+
+
 
 enableInlineShortcodes: true    
 
@@ -58,13 +72,13 @@ menu:
       pageRef: "/about"
       weight: 2
     - name: "产品中心"
-      pageRef: "/products"
+      url: "/products"
       weight: 3        
     - name: "变频器选型计算器"
-      pageRef: "/inverter-selection-system/"
+      url: "/inverter-selection-system/"
       weight: 4        
     - name: "软启动选型计算器"
-      pageRef: "/soft-starter-selection-system/"
+      url: "/soft-starter-selection-system/"
       weight: 5        
         
         
@@ -101,3 +115,4 @@ params:
       description: "变频器软启动柜厂家主营：高品质在线软启动器，旁路软起动器，在线软启动柜，矢量变频器，变频控制柜，高低压元器件及成套设备，服务全球客户。我们欢迎全球代理商、分销商、零售商以及其他合作伙伴加入我们，共同发展互利共赢的商业关系。"
       name: "临沂森阔机电有限公司"
     icp: 鲁ICP备17034385-2
+  math: true
