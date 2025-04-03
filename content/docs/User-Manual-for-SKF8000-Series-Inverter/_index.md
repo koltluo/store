@@ -1,5 +1,5 @@
 ---
-linkTitle: "SKF8000系列变频器使用说明书"
+linkTitle: "SKF8000系列变频器说明书"
 title: 变频器工作原理是怎样的？
 ---
 

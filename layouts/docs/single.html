@@ -2,11 +2,10 @@
   <div class='hx-mx-auto hx-flex {{ partial "utils/page-width" . }}'>
     {{ partial "sidebar.html" (dict "context" .) }}
     {{ partial "toc.html" . }}
-    <div id="container">
     <article class="hx-w-full hx-break-words hx-flex hx-min-h-[calc(100vh-var(--navbar-height))] hx-min-w-0 hx-justify-center hx-pb-8 hx-pr-[calc(env(safe-area-inset-right)-1.5rem)]">
       <main class="hx-w-full hx-min-w-0 hx-max-w-6xl hx-px-6 hx-pt-4 md:hx-px-12">
         {{ partial "breadcrumb.html" . }}
-        <div class="content">
+        <div class="content" id="container">
           {{ if .Title }}<h1>{{ .Title }}</h1>{{ end }}
           {{ .Content }}
         </div>
@@ -76,7 +75,6 @@
       {{ partial "utils/icon.html" (dict "name" "link" "attributes" "width=24 height=24 fill=currentColor") }}
     </a>
   </div>
-</div>
 <script>
 function copyToClipboard(text) {
   const textArea = document.createElement('textarea');
@@ -101,7 +99,7 @@ function copyToClipboard(text) {
     const btw = new BTWPlugin();
     btw.init({
         id: 'container',
-        blogId: '33515-1743344332524-936',
+        blogId: '33515-1743036229230-559',
         name: '森阔机电',
         qrcode: 'https://open.weixin.qq.com/qr/code?username=gh_e652583c4b94',
         keyword: '验证码',

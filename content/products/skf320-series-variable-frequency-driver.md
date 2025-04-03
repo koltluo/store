@@ -9,7 +9,7 @@ brands: ["森阔"]
 price: 530.00
 originalPrice: 750.00
 sales: 9568
-stock: 900
+stock: 200
 specifications:
   - name: "型号"
     options:
