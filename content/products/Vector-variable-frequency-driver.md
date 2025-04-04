@@ -6,7 +6,7 @@ categories: ["变频器"]
 brands: ["森阔"]
 price: 530.00
 originalPrice: 750.00
-sales: 9568
+sales: 8659
 stock: 900
 specifications:
   - name: "型号"
