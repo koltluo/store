@@ -9,15 +9,17 @@
     <div>
       <div class="swiper-container main-slider">
         <div class="swiper-wrapper">
-          {{ range .Params.images }}
-          <div class="swiper-slide">
-            <img src="{{ . }}" 
-            class="w-full h-full object-cover bg-gray-100 rounded-lg" 
-            alt="商品图片"
-            loading="lazy"
-            >
-          </div>
+          {{ $articleTitle := .Title }} <!-- 获取文章标题 -->
+
+          {{ range $index, $image := .Params.images }}
+            <div class="swiper-slide">
+              <img src="{{ $image }}" 
+                   class="w-full h-full object-cover bg-gray-100 rounded-lg" 
+                   alt="{{ $articleTitle }} {{ $index | add 1 }}"
+                   loading="lazy">
+            </div>
           {{ end }}
+
         </div>
         <div class="swiper-pagination"></div>
       </div>
