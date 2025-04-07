@@ -8,7 +8,7 @@ prev: /docs/user-manual-for-skf8000-series-inverter/mounting/control-terminals-a
 
 ### 3.5.1安装环境：
 
-1.环境温度：周围环境温度对变频器寿命有很大影响，不允许变频器的运行环境温度超过允许温度范围（-10℃～50℃）。
+1.环境温度：周围环境温度对[变频器](/products/vector-variable-frequency-driver/)寿命有很大影响，不允许变频器的运行环境温度超过允许温度范围（-10℃～50℃）。
 
 2.将变频器装于阻燃物体的表面，周围要有足够空间散热。变频器工作时易产生大量热量。并用螺丝垂直安装在安装支座上。
 

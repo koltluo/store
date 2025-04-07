@@ -6,7 +6,7 @@ next: /docs/user-manual-for-skf8000-series-inverter/panel-display-and-operation/
 prev: /docs/user-manual-for-skf8000-series-inverter/panel-display-and-operation/
 ---
 
-用操作面板，可对变频器进行功能参数修改，变频器工作状态监控和变频器进行启动、停止等操作，其外形及功能区如下图所示:
+用操作面板，可对[变频器](/products/vector-variable-frequency-driver/)进行功能参数修改，变频器工作状态监控和变频器进行启动、停止等操作，其外形及功能区如下图所示:
 ![C系列变频器操作面板示意图](/images/cmb.jpg "C系列变频器操作面板示意图")
 ## C系列变频器操作面板指示灯及按键功能
 | 按键符号    |  名称|    功能说明  | 

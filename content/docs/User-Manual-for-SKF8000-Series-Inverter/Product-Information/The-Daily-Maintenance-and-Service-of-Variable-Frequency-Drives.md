@@ -6,7 +6,7 @@ next: /docs/user-manual-for-skf8000-series-inverter/Mounting/
 prev: /docs/user-manual-for-skf8000-series-inverter/product-information/product-selection-specification-table/
 ---
 ### 2.6.1 日常保养
-由于环境的温度、湿度、粉尘及振动的影响，会导致变频器内部的器件老化，导致变频器潜在的故障发生或降低了变频器的使用寿命。因此，有必要对变频器实施日常和定期的保养及维护。  
+由于环境的温度、湿度、粉尘及振动的影响，会导致[变频器](/products/vector-variable-frequency-driver/)内部的器件老化，导致变频器潜在的故障发生或降低了变频器的使用寿命。因此，有必要对变频器实施日常和定期的保养及维护。  
 #### 日常检查项目：  
 1.电机运行中声音是否发生异常变化  
 2.电机运行中是否产生了振动  

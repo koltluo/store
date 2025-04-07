@@ -10,7 +10,7 @@ prev: /docs/user-manual-for-skf8000-series-inverter/panel-display-and-operation/
 ![SKF8000系列矢量变频器外接电位器接线图](/images/jxt1.jpg "SKF8000系列0.75~37KW矢量变频器外接电位器接线图")
 ***
 ![SKF8000系列矢量变频器外接按钮启动停止接线图](/images/jxt2.jpg "SKF8000系列0.75~37KW矢量变频器外接按钮启动停止接线图")  
-说明：按下绿色按钮，变频器启动；按下红色停止按钮，变频器停止；  
+说明：按下绿色按钮，[变频器](/products/vector-variable-frequency-driver/)启动；按下红色停止按钮，变频器停止；  
 变频器参数设置：P0-02=1;P4-02=3;P4-11=2
 ***
 ![SKF8000系列矢量变频器外接三档开关正反转接线图](/images/jxt3.jpg "SKF8000系列0.75~37KW矢量变频器外接三档旋钮开关正反转接线图")  

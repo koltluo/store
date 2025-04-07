@@ -8,7 +8,7 @@ prev: /docs/user-manual-for-skf8000-series-inverter/fault-diagnosis-and-counterm
 
 感谢您使用我公司的产品，为确保您在本公司购买的产品享受优质的服务，请阅读以下条款：
 ### 标准保修期
-本公司通用变频器提供标准的保修期为自出厂日起十二个月（以机身条形码的出货信息为准）。
+本公司通用[变频器](/products/vector-variable-frequency-driver/)提供标准的保修期为自出厂日起十二个月（以机身条形码的出货信息为准）。
 
 ### 保修范围
 在保修期内，产品在正常要求使用情况下发生故障，凭着保修卡，本公司将为您免费提供产品维修。

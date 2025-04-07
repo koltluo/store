@@ -6,7 +6,7 @@ next: /docs/user-manual-for-skf8000-series-inverter/Mounting/
 prev: /docs/user-manual-for-skf8000-series-inverter/product-information/product-selection-specification-table/
 ---
 
-变频器可提供三种控制方式：普通V/F、SVC、VC。  
+[变频器](/products/vector-variable-frequency-driver/)可提供三种控制方式：普通V/F、SVC、VC。  
 选用变频器时首先必须明确系统对变频调速的技术要求、变频器的应用场合及负载特性的具体情况，并从适配电机、输出电压、额定输出电流等方面因素进行综合考虑，进而选择满足要求的机型及确定运行方式。
 
 基本原则为：电机额定负载电流不能超过变频器的额定电流。一般情况下按[变频器说明书](/zh-cn/docs/user-manual-for-skf8000-series-inverter/ "变频器说明书")所规定的配用电机容量进行选择，注意比较电机和变频器的额定电流。变频器的过载能力对于起动和制动过程才有意义。凡是在运行过程中有短时过载的情况，会引起负载速度的变化。如果对速度精度要求比较高时，请考虑放大一个档次。

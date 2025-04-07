@@ -6,7 +6,7 @@ next: /docs/warranty-instructions/
 prev: /docs/fault-diagnosis-and-countermeasures/fault-alarm-and-countermeasures/
 ---
 
-变频器使用过程中可能会遇到下列故障情况，请参考下述方法进行简单故障分析：  
+[变频器](/products/vector-variable-frequency-driver/)使用过程中可能会遇到下列故障情况，请参考下述方法进行简单故障分析：  
 ### 变频器常见故障及其处理方法
 |序号|  故障现象|    可能原因  | 解决方法 |
 | :----:| :----: |    :----   | :----   |  

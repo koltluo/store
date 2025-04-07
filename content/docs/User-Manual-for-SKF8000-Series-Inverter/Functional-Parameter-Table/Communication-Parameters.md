@@ -8,7 +8,7 @@ prev: /docs/user-manual-for-skf8000-series-inverter/functional-parameter-table/m
 {{< callout type="info" >}}
   变频器参数属性说明
 {{< /callout >}}
-✅：表示该参数的设定值在变频器处于停机、运行状态中，均可更改；  
+✅：表示该参数的设定值在[变频器](/products/vector-variable-frequency-driver/)处于停机、运行状态中，均可更改；  
 ✅：表示该参数的设定值在变频器处于运行状态时，不可更改；  
 ❎：表示该参数的数值是实际检测记录值，不能更改；
 
