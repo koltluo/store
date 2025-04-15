@@ -114,3 +114,4 @@ excludeSearch: true
   {{< card link="/docs" title="变频器使用说明书" icon="newspaper" subtitle="SKF8000系列高性能矢量变频器使用说明书" >}}
 {{< /cards >}}	
 
+{{< twikoo >}}  
