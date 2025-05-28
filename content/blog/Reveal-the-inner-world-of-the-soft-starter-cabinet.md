@@ -13,8 +13,6 @@ description: 上次咱们聊了软启动器这位“温柔绅士”的看家本�
 
 
 
-
-
 各位奋斗在自动化一线的老铁们，森阔机电的小课堂又准时开播啦！
 
 上次咱们聊了[软启动器](https://www.lyskjd.com/products/online-soft-starter/ "软启动器")这位“温柔绅士”的看家本领，知道它能让电机启动不再“野蛮生长”。但是，很多时候，这位“绅士”并不是一个人在战斗，它往往会住进一个专门为它打造的“家”——[**软启动柜**](https://www.lyskjd.com/products/online-soft-start-cabinet/)。

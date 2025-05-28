@@ -116,3 +116,4 @@ params:
       name: "临沂森阔机电有限公司"
     icp: 鲁ICP备17034385-2
   math: true
+  summaryLength: 150  # 单位：字符
